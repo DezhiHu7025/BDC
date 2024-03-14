@@ -1,0 +1,224 @@
+﻿@{
+    ViewBag.Title = "Open Day回馈问卷G3,G4,G5,G6";
+    Layout = "~/Views/Shared/_ClientLayout2.cshtml";
+}
+
+<link href="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" media="screen" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.zh-CN.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.fr.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/app_js/jquery.form.js")" type="text/javascript"></script>
+
+<!-- 表格 -->
+
+
+
+<div class="container text-left" style="background:#ffffff;padding:0px;margin:0px">
+
+
+
+    <!-- 登入/start -->
+    <div style="padding-left:15px;padding-right:15px;">
+
+
+        <form id="form1">
+            <input type="hidden" name="inp_ActivityName" value="@ViewBag.ActivityID" />  <!--双语班-->
+
+            <div class="row" style="font-weight:700">
+                <div id="myAlert" class="alert alert-warning" style="font-size: 20px;margin-top:10px">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <h1 class="hidden-xs hidden-sm">
+                        Kang Chiao International School Bilingual Department
+                        「2019年康桥Time成果发表会暨English Open Day」回馈问卷
+                        2019 Kang Chiao Time and English Open Day Feedback Questionnaire
+                    </h1>
+                    <strong>
+
+                        亲爱的家长您好：
+                        首先，感谢您对于康桥的支持，在百忙之中抽空来参与孩子们的学习。为了让老师的教学与学校的环境更符合您孩子的学习，请您抽空填写这份问卷，作为我们精进教学品质的参考。谢谢您！
+                        双语部全体教职员敬上<br><br>
+                        Dear Parents:
+                        First of all, thank you for supporting Kang Chiao and taking the time out of your busy schedule to participate in these events. We would like to request that you kindly help us in our efforts to improve our teachers’ teaching and the school’s learning atmosphere by taking a moment to fill in this questionnaire.
+                        Sincerely,
+                        The Bilingual International Department
+
+
+
+                    </strong>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-12 col-xs-12 col-sm-6 col-lg-4">
+                    <div class="form-group">
+                        <label>母班班级(Homeroom)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" style="max-width:150px" name="inp_ClassCN" />
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-6 col-lg-4">
+                    <div class="form-group">
+                        <label>英文班级(Child’s English class)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" style="max-width:150px" name="inp_ClassEN" />
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-6 col-lg-4"  >
+                    <div class="form-group">
+                        <label>孩子性别(Child’s gender)<span class="text-danger">*</span></label><p>
+                            <label class='radio-inline'><input type='radio' name='inp_Sex' value='M'>男 boy</label>
+                            <label class='radio-inline'><input type='radio' name='inp_Sex' value='F'>女 girl</label>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--题目开始-->
+
+
+            @Html.Raw(@ViewBag.Questions)
+
+
+
+            <!--题目结束-->
+
+            <div class="row" style="margin-top:20px;text-align:center">
+                <div class="col-xs-12 col-lg-12"><button type="button" class="btn btn-lg btn-primary send-btn" name="btn_Send" id="btn_Send">提交(Submit)</button></div>
+            </div>
+
+
+
+        </form>
+    </div>
+    <!-- 登入/end -->
+
+
+</div>
+
+<!--頁腳/開始-->
+<footer class="mt-5 bg-dark footer-content" style="background:#ffffff">
+    <p class="text-center text-white mb-0 mt-0"> </p>
+</footer>
+<!--頁腳/結束-->
+
+
+
+<script type="text/javascript">
+    var FormID = "LeaDay";  //模版1-1
+    var strSourceType = '@ViewBag.SourceType';
+    jQuery(document).ready(function () {
+
+
+
+        //模版1-2
+        $("#Menu_Title").html($("#Menu_" + FormID).find("a").html());
+        $("#Menu_Root li").each(function () {
+            if ($(this).hasClass("active"))
+                $(this).removeClass();
+        })//end of each
+        $("#Menu_" + FormID).addClass("active");
+
+ 
+    });
+
+
+    $("#btn_Send").bind("click", function () {
+
+        SendForm();
+
+    });
+
+  //储存数据
+    function SendForm() {
+
+
+
+        if ($("[name=inp_ClassCN]").val() == '') {
+            alert('请输入母班班级!(Child’s Home room cannot empty)');
+            $("input[name=inp_ClassCN]").focus();
+            return false;
+        }
+        if ($("[name=inp_ClassEN]").val() == '') {
+            alert('请输入英文班级!(Child’s English class cannot empty)');
+            $("input[name=inp_ClassCN]").focus();
+            return false;
+        }
+
+        if ($("[name=inp_Sex]:checked").val() == '' || $("[name=inp_Sex]:checked").val() == undefined) {
+            alert('请输入性别!(Child’s gender cannot empty)');
+            $("input[name=inp_Sex]").focus();
+            return false;
+        }
+
+        //检查全部问题是否已经填写
+        var isExit = false;
+        if (!isExit)
+        $(".custRadio").each(function () {
+            var optionValue = $(this).find("input[type=radio]:checked").val();
+            if ($(this).find("input").attr("type") == 'radio' && undefined == optionValue) {
+                alert('请填写全部问题答案!(Please fill out the answers to all questions.)');
+                $(this).find("input").focus();
+                isExit = true;
+                return false;
+            }
+        });
+
+        if (!isExit)
+        $(".custRadio").each(function () {
+            var optionValue = $(this).find("textarea").val();
+            if (optionValue=="") {
+                alert('请填写全部问题答案!(Please fill out the answers to all questions.)');
+                $(this).find("textarea").focus();
+                isExit = true;
+                return false;
+            }
+        });
+
+
+        if (isExit)
+            return false;
+
+        //弹出提示视窗
+        $('#KcisPopTitleDiv').css("display", "none")
+        $('#KcisPopContent').css("text-align", "center").html("<img src='@Url.Content("~/images/grid-loading.gif")' /> 请稍后您的问卷正在提交中...<p>Data is Processing");
+        $('#KcisPopModal').modal('show')
+
+        //开始上传
+        $("#form1").ajaxSubmit({
+            success: showResponse,
+            error: function (data) { alert(data); },
+            url: '@Url.Action("Fill_SendFormAjax", "OpenQuestionnaire")',
+            type: "Post",
+            dataType: null
+        });
+
+        return false;
+
+
+
+    }  //end of func
+
+    //数据储存CallBack
+    function showResponse(responseText, statusText) {
+
+        if (responseText.indexOf("[Error]") >= 0) {
+            alert("對不起，送单失败，目前系统正在维修中！(Sorry, Appling is fail!)");
+            return false;
+        } else if (responseText.indexOf("{Error}") >= 0) {
+            alert(responseText.replace("{Error}", ""));  //客制化讯息
+            return false;
+        }
+
+        $("#btn_Send").hide();
+
+        //alert(responseText);
+        window.location.href = '@Url.Content("~/OpenQuestionnaire/QuestionnaireMessage")';
+
+
+        return false;
+    }
+
+
+</script>
+

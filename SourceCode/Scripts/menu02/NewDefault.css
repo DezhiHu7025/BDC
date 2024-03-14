@@ -1,0 +1,41 @@
+﻿/*============================默认样式：直接定义元素的样式=======================================*/
+dl, dt, dd, ul, li, ol, p, form, img{padding:0px;margin:0px;list-style:none;border:none;}
+a, a:link, a:active{color:#3D81EE;text-decoration:none;}
+a:hover{color:#F90;text-decoration:none;}
+a img{border:0;}
+
+
+
+
+/*导航*/	
+#navmaster{margin:0 auto;width:620px;padding:0px;}
+#navmaster ul{list-style-type:none;margin:auto;padding:0px;}
+#navmaster ul li{display:inline;float:left;padding:0px;cursor:pointer;font-weight:700;}
+#navmaster li a{font-size:16px;color:#454545;letter-spacing:2px;font-family:微软雅黑, Tahoma, Verdana, Arial;}
+#navmaster li a:hover{color:#fff;}
+#navmaster li.hover a{color:#fff;}
+.M1Common{width:109px;height:58px;margin:29px 0px 0px 0px;}
+.M1{background:url(images/menu_ico1.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_ico1.png");color:#000;}
+.M1Hover{background:url(images/menu_hover_ico1.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_hover_ico1.png");color:#fff;}
+.M2Common{width:138px;height:75px;margin:12px 0px 0px -23px;}
+.M2{background:url(images/menu_ico2.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_ico2.png");}
+.M2Hover{background:url(images/menu_hover_ico2.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_hover_ico2.png");}
+.M3Common{width:150px;height:63px;margin:24px 0px 0px -36px;}
+.M3{background:url(images/menu_ico3.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_ico3.png");}
+.M3Hover{background:url(images/menu_hover_ico3.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_hover_ico3.png");}
+.M4Common{width:123px;height:54px;margin:33px 0px 0px -5px;}
+.M4{background:url(images/menu_ico4.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_ico4.png");}
+.M4Hover{background:url(images/menu_hover_ico4.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_hover_ico4.png");}
+.M5Common{width:121px;height:68px;margin-top:19px;}
+.M5{background:url(images/menu_ico5.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_ico5.png");}
+.M5Hover{background:url(images/menu_hover_ico5.png) no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/menu_hover_ico5.png");}
+/***只用于首页*****/
+.downMenu ul{padding:0;margin:0;}
+.downMenu ul li{margin-top:0;}
+.downMenu ul li a{padding-bottom:0;padding-top:7px;margin:0;cursor:pointer;background:#e8ecf2;color:#205fa2! important;text-decoration:none;display: inline-block;height:22px;width:80px;border:1px #c2d3ed solid;border-top:none;}
+/*首页三角形样式*/
+.bordCss{height:0;width:0;overflow:hidden;font-size:0;line-height:0;border-color:transparent transparent transparent #FF9900;border-style:dashed dashed dashed solid;border-width:5px;border-right-width:0;display:inline-block;margin:2px 2px 0 0;}
+.bordCssGreen{border-color:transparent transparent transparent #26850d;margin:2px 3px 0 0;}
+.bordBottomCss{border-color:#FF9900 transparent transparent transparent;border-style:solid dashed dashed dashed;border-width:5px;border-bottom-width:0;margin:0;}
+.bordBottomCssN{border-style:solid dashed dashed dashed;border-color:#333333 transparent transparent transparent;border-width:3px;border-bottom-width:0;margin:0 0 4px 2px;}
+.bordBottomCssNF{border-style:solid dashed dashed dashed;border-color:#ffffff transparent transparent transparent;border-width:3px;border-bottom-width:0;margin:0 0 4px 2px;}

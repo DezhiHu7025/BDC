@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "家长车牌登录）";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh">
+@{
+    System.Data.DataTable dt_Product = ViewBag.dt_Product;
+
+    if (dt_Product.Rows.Count == 0)
+    {
+        Response.Redirect(Url.Action("ActionWebPage_ClosePage", "ActionWebPage"));
+    }
+}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - </title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="@Url.Content("~/Scripts/bootstrap3.3.7/css/bootstrap.css")" type="text/css" />
+    <script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/jquery.min.js")" type="text/javascript"></script>
+    <script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/js/bootstrap.min.js")" type="text/javascript"></script>
+
+
+</head>
+<body>
+
+    <div class="container text-center" style="background:#ffffff;padding-left:0px;padding-right:0px;padding-bottom:0px;margin-bottom:0px;">
+        <div class="container" style="background:#009fa8;padding-bottom:0px;margin-bottom:0px;">
+
+            <div class="row clearfix" id="div_PageHead">
+                <div class="col-xs-4 text-left hidden-xs" style="padding:20px"><img id="div_PageHead_PIC" src="@Url.Content("~/HeadTailPIC/")@dt_Product.DefaultView[0]["HeadPIC"].ToString()" /></div>
+                <div class="col-xs-12 col-sm-8 col-md-8 text-left align-middle" id="div_PageHead_Word" style="padding:20px;font-size:30px;font-family:Arial;font-weight:700;color:white">@dt_Product.DefaultView[0]["HeadWord"].ToString()</div>
+
+            </div>
+        </div>
+
+
+
+
+        <!-- 表格 -->
+
+
+        <div class="container text-left" style="background:#ffffff;padding:0px;margin:0px">
+            &nbsp;
+
+
+            <!-- 登入/start -->
+            <div style="padding-left:15px;padding-right:15px;">
+
+
+
+                <div class="container" id="div_Content">
+
+                    @Html.Raw(@dt_Product.DefaultView[0]["Webcontent"].ToString())
+                </div>
+
+
+            </div>
+
+
+
+            <!-- 登入/end -->
+
+
+            <form id="form3"><input type="hidden" name="inp_CarNo" value="" /> <input type="hidden" name="inp_Kind" value="" />  </form>
+        </div>
+
+        <!--頁腳/開始-->
+        <footer class="mt-5 bg-dark footer-content" style="background:#ffffff" id="div_PageTail">
+            <p class="text-center text-white mb-0 mt-0"> </p>
+        </footer>
+        <!--頁腳/結束-->
+
+    </div>
+
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+ 
+    jQuery(document).ready(function () {
+
+        $('img').addClass("img-responsive");
+
+        $(document).attr("title", "@dt_Product.DefaultView[0]["TagName"].ToString()");
+
+        @*$('#body').css("width", "@dt_Product.DefaultView[0]["PageWidth"].ToString()px");
+        $('#div_PageHead').css("height", "@dt_Product.DefaultView[0]["HeadHeigth"].ToString()px");*@
+        $('#div_PageHead').css("background-color", "@dt_Product.DefaultView[0]["HeadBackgroundColor"].ToString()");
+        $('#div_PageHead').css("color", "@dt_Product.DefaultView[0]["HeadColor"].ToString()");
+        $('#div_PageHead').css("font-size", "@dt_Product.DefaultView[0]["HeadFontSize"].ToString()px");
+
+        $('#div_PageTail').css("height", "@dt_Product.DefaultView[0]["TailHeigth"].ToString()px");
+        $('#div_PageTail').css("background-color", "@dt_Product.DefaultView[0]["TailBackgroundColor"].ToString()");
+
+        $('#div_Content').css("background-color", "@dt_Product.DefaultView[0]["ContentBackgroundColor"].ToString()");
+
+    });
+
+
+
+</script>
+

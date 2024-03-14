@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "导出汇整系统报表";
+}
+<style type="text/css">
+    .white-popup {
+        position: relative;
+        background: #FFF;
+        padding: 20px;
+        width: auto;
+        max-width: 500px;
+        margin: 20px auto;
+    }
+</style>
+
+<div class="content_full">
+
+    <table border="0" cellspacing="0" cellpadding="0" id="right_win" style="width:100%">
+        <tr>
+            <td align="left">
+                <!-- start of right content -->
+                <table border="0" cellspacing="0" cellpadding="0" style="width:100%">
+                    <tr>
+                        <td>
+                            <span style="font:bold 14px/0px Verdana, Geneva, sans-serif;">
+                                <a href='@Href("~/Home/")'>首页</a>>>导出汇整报表
+                            </span>
+                        </td>
+                        <td width="80" align="right"><span id="myhelp"><a class="a" href="#">帮助</a></span></td>
+                    </tr>
+                </table>
+                <hr />
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+
+                <table border="0" cellspacing="4" cellpadding="4" style="width:100%">
+
+                    <tr>
+
+                        <td align="left" style="width:550px;">
+
+                            <span class="NoEmpty">＊</span>导出资料月份：<select name="sel_DateMonth" tabindex="1"></select>&nbsp;&nbsp;
+
+                        </td>
+                        <td align="left"></td>
+                        <td align="left" width="130">
+                            <input type="button" value="导出Excel" id="btnQuery" />
+                        </td>
+
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr><td><div id="div_ListContent" style="width: 960px; height: 500px; overflow-x: auto; overflow-y: auto; " /></td></tr>
+
+
+    </table>
+
+
+
+
+
+</div>  <!-- end of index block  -->
+<div id="run_msg" style="display:none;font:bold 14px/16px Verdana, Geneva, sans-serif;" />
+
+
+<script type="text/javascript">
+
+    $("#btnQuery").bind("click", function () {
+
+        window.location.href = '@Url.Action("ReportSummary_Excel_Ajax", "Report")?strYYYYMM=' +  $("[name=sel_DateMonth]").val()+ '&_=' + (new Date()).getTime();
+
+    });
+
+    $(function () {
+        $("[name=sel_DateMonth]").append("@Html.Raw(ViewBag.DataMonth)");
+        $("[name=sel_DateMonth]").val('@Html.Raw(ViewData["YYYYMM"].ToString())');
+
+    });      // end of ready function
+
+
+    $("#myhelp").bind("click", function () {
+        $("#help_msg").dialog({
+            title: '幫助訊息', resizable: true, closeText: 'hide', maxHeight: 300, width: 500, modal: true,
+            close: function (event, ui) { }
+
+        });
+    });
+</script>

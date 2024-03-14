@@ -1,0 +1,30 @@
+html,body,ul,ol,li,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,img{ margin:0;padding:0;}
+fieldset,img,textarea{ border:0;}/*去掉边框*/
+li{ list-style:none;}/*去掉列表样式*/
+h1,h2,h3,h4,h5,h6{ font-weight:normal;}
+h2{font-size: 16px; font-size: 1rem;color: #333; line-height: 35px;}
+/*设置链接*/
+a{ text-decoration:none; }
+li,a:hover{ text-decoratrion:none; cursor: pointer;}
+/*特殊声明*/
+body{ font-size:1em; background-color: #fff; color:#555555;font-family:"Helvetica Neue",Helvetica,Arial,"微软雅黑",sans-serif;position: relative;}
+td, input, div, textarea,table,select{font-family:"Helvetica Neue",Helvetica,Arial,"微软雅黑",sans-serif;}
+.clearfix:after{ content:"."; clear:both; display:block; height:0; visibility:hidden;}
+.clearfix{ zoom:1;clear: both; }
+.clear{clear: both; }
+img{ width: 100%;  } 
+body{	background:#fff;
+}
+.layout_bd{
+	width: 100%; height: 100%; margin: 0 auto; 
+	font-family:'Microsoft YaHei',Arial;
+	font-size:100%;
+	
+background: url(../img/cent.jpg) repeat 100% 100%;background-size: 100%;min-height: 800px;
+
+}
+.footer{background: url(../img/down.jpg) no-repeat 100% 100%;background-size: 100%; width: 100%; height:256px; }
+.layout_main{  height: 100%;}
+.title{background: url(../img/top.jpg) no-repeat 0 0; background-size: 100%; width: 100%; height:248px; font-size: 60px; color: #fff; text-align: center;  }
+.pic{background:url(../img/bg2.jpg)  no-repeat 0 0;width: 100%;height:100%; background-size: 100% 100%  ;min-height:767px;}
+.content{ background: url(../img/cent.jpg) repeat 100% 100%;background-size: 100%;min-height: 500px;}

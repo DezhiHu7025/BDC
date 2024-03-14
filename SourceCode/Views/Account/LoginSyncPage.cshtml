@@ -1,0 +1,111 @@
+﻿@{
+    Layout = null;
+}
+@Html.Partial("ManageJS_MobilePartial")
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>学生校务系统-登入</title>
+ 
+
+</head>
+ 
+<body>
+    <div class="main_index">
+
+
+
+        <div>
+
+            <form method="post" action="demoform.php" id="FormLogin">
+
+
+                <input type="hidden" name="CuserID" value="@ViewBag.CuserID" />
+
+
+            </form>
+
+        </div>
+
+
+    </div>
+    <div id="run_msg" />
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+
+    function go() {
+
+        $("#FormLogin").ajaxSubmit({
+        type: "Post",
+        dataType: null,
+        url: '@Url.Action("LogInSyncFunc", "Account")',
+        beforeSubmit: function () { },
+        error: function (XmlHttpRequest, textStatus, errorThrown) {
+
+            alert('Error:'+XmlHttpRequest.responseText);
+        },
+        success: function (responseText) {
+            var jsonObj = $.parseJSON(responseText);
+
+            $.each(jsonObj, function (i, result) {
+                var strStatus = result["strStatus"];
+                var strMessage = result["strMessage"];
+
+                if (strStatus == '[error]') {
+                    alert("登入失败，系统异常请联系资讯组!");
+                    closeWin()
+                    return false;
+                } else if (strStatus == '{error}') {
+                    alert(strMessage.replace("{error}", ""));  //客制化讯息
+                    closeWin()
+                    return false;
+                } else {  //成功返回
+
+                    if (result["ToURL"].length == 0)
+                        closeWin()
+                    else
+                        window.location.href = result["ToURL"];
+                    return false;
+                }
+
+            }); //end of each
+
+            }//succ
+        }); //end of submit form
+
+
+
+    }//end of func
+
+    $(document).ready(function () {
+
+        if ($('[name=CuserID]').val() == "") {
+            //alert("CuserID缺失！");
+            closeWin()
+            return false;
+        }
+
+        go();
+
+    });         // ready end
+
+    function closeWin() {
+
+        try {
+            window.opener = window;
+            var win = window.open("", "_self");
+            //win.close();
+            //top.close();
+        } catch (e) { }
+
+        window.location.href = 'http://' + window.location.host + '/China/Account/Login?returnUrl=' + $('[name=returnUrl]').val();
+    }
+
+</script>

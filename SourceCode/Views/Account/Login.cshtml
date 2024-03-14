@@ -1,0 +1,220 @@
+﻿@{
+    Layout = null;
+}
+@Html.Partial("ManageJS_MobilePartial")
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>小学部在线申请-登入</title>
+    <link href="@Url.Content("~/fonts/auto_style.css")" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+<body>
+    <div class="main_index">
+        <div class="main_top">
+            <div class="main_logo"><img src="~/images/logo_denglu.png" /></div>
+            <div class="main_title"><i class="fa fa-user-o"></i>&nbsp;小学部在线申请</div>
+            <div class="main_logout"><span style="font-size:12px">&nbsp;</span><br></div>
+        </div>
+
+        <div data-role="header">
+            <a rel="external" href="@Url.Content("~/CarLED/EastDoorrReadOnly_Main")" class="ui-btn ui-shadow ui-corner-all ui-icon-eye ui-btn-icon-notext ui-btn-a ui-btn-inline">车接入校清单</a>
+            <h1>登录</h1>
+        </div>
+
+        <div>
+
+            <form method="post" action="demoform.php" id="FormLogin">
+
+                <h3>登录信息</h3>
+                <label for="usrnm" class="ui-hidden-accessible">用户名:</label>
+                <input type="text" name="UserId" id="UserId" placeholder="学号">
+                <label for="pswd" class="ui-hidden-accessible">密码:</label>
+                <input type="password" name="Password" id="Password" placeholder="密码(默认：Ks@生日)">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                <input type="hidden" name="CuserID" value="" />
+
+                <div>
+                    <table style="border:0px;width:100%">
+                        <tr>
+
+                            <td align="left"><input type="button" data-inline="true" name="btn_s" value="登录"></td>
+
+
+                            <td align="left"></td>
+
+                        </tr>
+                    </table>
+
+
+
+                </div>
+
+
+
+
+                <div style="float: left; white-space: normal; color: blue"></div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+
+            </form>
+            
+        </div>
+ 
+
+      
+
+ 
+
+        <div class="main_bot">
+            @*<div class="main_bot_l">
+                <img src="~/images/bot_logo.png" />
+            </div>*@
+            <div class="main_bot_r">
+                Copyright © 2014 K.C.I.S.E.C　康桥学校，未经授权禁止转贴、节录标注
+            </div>
+        </div>
+    </div>
+    <div id="run_msg" />
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    //$("[name=btn_s]").bind("click", function () {
+    $("[name=btn_s]").on("tap",function(){
+        go();
+        return false;
+    });
+
+    function go() {
+
+        
+
+        //alert($("input[name='rad_lang']:checked").val())
+        if ($('[name=UserId]').val() == "") {
+            alert("請输入账号");
+            return false;
+        }
+
+        if ($('[name=Password]').val() == "") {
+            alert("請输入密码");
+            return false;
+        }
+
+
+        @*$.get('@Url.Action("LogInCheck","Account")?UserId=' + $('[name=UserId]').val() + "&Password=" + $('[name=Password]').val() + "&Lang=" + $("input[name='rad_lang']:checked").val() + "&returnUrl=" + encodeURIComponent("@ViewBag.ReturnUrl") + "&_=" + (new Date()).getTime(), function (data, textStatus) {
+     
+            if (data.indexOf("[ok]") >= 0) {
+
+                if (data.indexOf("/") >= 0) {
+                    //alert(data.replace("[ok]", ""))
+                    window.location.href = data.replace("[ok]", "");
+                }else
+                    alert("网址错误!(Error URL)");
+
+            } else
+                alert(data);
+
+        });*@
+
+        $("#FormLogin").ajaxSubmit({
+            type: "Post",
+            dataType: null,
+            url: '@Url.Action("LogInCheck", "Account")',
+            beforeSubmit: function () { },
+            error: function (XmlHttpRequest, textStatus, errorThrown) {
+       
+                alert(XmlHttpRequest.responseText);
+            },
+            success: function (responseText) {
+      
+                //alert("responseText=" + responseText);
+                var jsonObj = $.parseJSON(responseText);
+
+                $.each(jsonObj, function (i, result) {
+                    var strStatus = result["strStatus"];
+                    var strMessage = result["strMessage"];
+
+                    if (strStatus == '[error]') {
+                        alert("登入失败，系统异常请联系资讯组!");
+                        return false;
+                    } else if (strStatus == '{error}') {
+                        alert(strMessage.replace("{error}", ""));  //客制化讯息
+                        return false;
+                    } else {  //成功返回
+                        //alert('len=' + result["ToURL"].length)
+                        if (result["ToURL"].length==0)
+                            closeWin()
+                        else
+                            window.location.href = result["ToURL"];
+                        return false;
+
+                    }
+
+                }); //end of each
+
+            }//succ
+        }); //end of submit form
+
+
+
+    }//end of func
+
+    function support_history() {
+        return !!(window.history && history.pushState);
+    }
+
+    function closeWin() {
+
+        try {
+            window.opener = window;
+            var win = window.open("", "_self");
+            win.close();
+            top.close();
+        } catch (e) { }
+
+        window.location.href = 'http://' + window.location.host + '/China/Account/Login?returnUrl=' + $('[name=returnUrl]').val();
+    }
+
+
+    $(document).ready(function () {
+
+        if ($('[name=CuserID]').val() == "") {
+            closeWin()
+            return false;
+        }
+
+        if (!support_history()) {
+            alert("对不起，您目前所用的浏览器版本太老旧不支持HTML5功能，请先升级或使用其他浏览器，谢谢～\n")
+            window.location.href = "http://portal.kcistz.org.cn/China";
+        }
+
+        $('[name=UserId]').val('');
+        $('[name=Password]').val('');
+        
+        if ('@Kcis.Models.Config.IsSharing' == 'True') { 
+            $("[name=UserId]").val("");
+            $("[name=Password]").val("kcis");
+        }
+
+        $('[name=UserId]').focus();
+        $('[name=Password]').keydown(function (event) {
+            if (event.which == 13) {
+                go();
+            }
+        });
+
+        $('[name=UserId]').keydown(function (event) {
+            if (event.which == 13)
+                $('[name=Password]').focus();
+        });
+
+
+    });         // ready end
+
+</script>

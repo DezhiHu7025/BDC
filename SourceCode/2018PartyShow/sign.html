@@ -1,0 +1,159 @@
+﻿<!doctype html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>教职员-签到区</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/jquery1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+    <div class="pic">
+
+        
+        <table width="100%" border="0">
+            <tr><td height="170px">&nbsp;</td></tr>
+            <tr>
+
+                <td align="center" valign="middle">
+                    <div id="div_Idle" style="font-size:10px;font-weight:700;color:white;text-align:center"><img src="img\word.png" style="width:900px;height:460px"><br><input type="text" size="10" id="inp_CardNO" style="border:0;background-color:crimson;color:white;background-image:url(img/cent.jpg)" name="inp_CardNO"/>  </div>
+                    <div id="div_OK" style="font-size:60px;font-weight:700;color:white;display:none;text-align:center"><img src="img\OK.gif" style="width:400px;height:350px"></div>
+                    <div id="div_REP" style="font-size:60px;font-weight:700;color:white;display:none;text-align:center"><img src="img\Fail01.gif" style="width:250px;height:250px"></div>
+                    <div id="div_Message" style="font-size:60px;font-weight:700;color:white;text-align:center"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"></td>
+            </tr>
+        </table>
+
+    </div>
+    
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        RefocusCodeInput()
+        $("#inp_CardNO")[0].focus();
+        $("#inp_CardNO").val('');
+
+    });         // ready end
+
+    var strCardNO = "";
+    var isRunning='N';
+    var timer01;
+    var iCount = 1;
+    var timerIntervalValue = 1000;
+
+    function RefocusCodeInput() {
+        var tflag = 'N';
+
+        if (isRunning == 'Y')
+            tflag='Y';
+
+        iCount = iCount - 1;
+         
+
+        if (iCount > 0)
+            tflag = 'Y';
+
+        if (tflag == 'N') {
+            iCount = 1;
+            $("#div_Idle").show();
+            $("#div_Message").html('')
+            $("#div_OK").hide();
+            $("#div_REP").hide();
+            
+            
+
+            $("#inp_CardNO")[0].blur();
+            $("#inp_CardNO")[0].focus();
+        }
+        timer01 = setTimeout("RefocusCodeInput()", timerIntervalValue);
+    }
+
+
+
+
+    $("#inp_CardNO").change(function () {
+        //删除上一次的卡号
+        if (isRunning == 'Y')
+            return;
+
+        //strCardNO = $("#inp_CardNO").val().replace(strCardNO, '');
+        //$("#inp_CardNO").val(strCardNO)
+
+        if ($("#inp_CardNO").val().length < 9 || $("#inp_CardNO").val() == "") {  //只接受5码的资料
+            $("#inp_CardNO").val('');
+            return false;
+        }
+
+        go();
+
+    });//end of func
+
+    //刷卡扣款
+    function go() {
+
+
+        if ($('#inp_CardNO').val() == "") {
+            alert("請输入卡号！");
+            return false;
+        }
+
+
+        var strParameter = "strCardNO=" + $("#inp_CardNO").val();
+        strParameter += "&strMode=";
+        //alert('strParameter=' + strParameter)
+        $("#inp_CardNO").val('');
+        isRunning = 'Y';
+        iCount = 3;
+        $.getJSON('/KcisYear/Manager/Common_ExeScanCard?' + strParameter + '&t1=' + (new Date()).getTime(), function (data) {
+           
+            $.each(data, function (i, result) {
+
+
+                var strStatus = result["strStatus"];
+                var strMessage = result["strMessage"];
+                //alert("strStatus=" + strStatus)
+                //alert("strMessage=" + strMessage)
+                $("#div_OK").hide();
+                $("#div_Message").html('')
+                $("#div_REP").hide();
+                $("#div_Idle").hide();
+                 
+
+                if (strStatus == '[error]') {
+                    //alert(strMessage)
+                    iCount = 5;
+                    $("#div_REP").show();
+                } else if (strStatus == '{error}') {
+
+                    $("#div_REP").show();
+
+                }else {
+
+                    $("#div_OK").show();
+                }
+                $("#div_Message").html(strMessage)
+                window.opener.FreshTable(result["strEmpNo"], result["strCname"], strMessage);
+      
+            }); //end of each
+
+           
+            $("#inp_CardNO")[0].focus();
+            $("#inp_CardNO").val('');
+            //$("#icon_running").hide();
+        }); //end of getstrStatus=
+        isRunning = 'N';
+
+    }//end of func
+
+</script>

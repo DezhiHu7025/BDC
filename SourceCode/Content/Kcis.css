@@ -1,0 +1,143 @@
+
+   
+.table_FormFrame{
+    border-collapse: collapse;
+    background:#efefef;
+}
+.table_FormFrame td{
+    border: 1px solid #808080;
+}
+
+.table_NoFrame{
+  border-collapse: collapse;
+}
+.table_NoFrame td{
+    border: 0px solid #fff;
+    border-width: 0;
+}
+
+/* css注释：默认css背景被白色 */ 
+.alt td{ background:#F2F2F2;} 
+/* css 注释：默认隔行背景颜色 */ 
+.over td {background:#EEECEB;}     
+
+.comments {  
+ width:98%;/*自动适应父布局宽度*/  
+ overflow:auto;  
+ word-break:break-all;  
+} 
+
+.textArea_Form
+{
+ font-family: sans-serif;
+ font-size:13px;color:black;
+ width:99%;/*自动适应父布局宽度*/  
+ overflow:auto;  
+ word-break:break-all;  
+}
+
+ input, img {
+       /* width:30px;
+        height:30px; 
+        padding:10px 10px;
+        margin:20px 20px;        
+        border: 2px inset; */
+        vertical-align:middle;
+    }
+
+.input_Tree
+{
+ background:url(<%=Url.Content("~/images/app/tree_icon.jpg")%>) center right no-repeat;
+ background-color:#fff
+}
+
+.input_menu
+{
+ background:url(<%=Url.Content("~/images/app/menu_icon.gif")%>) center right no-repeat;
+ background-color:#fff
+}
+
+.NoEmpty
+{
+ color:Red;
+}
+
+ 
+
+
+.tr_ChangeBG tr:nth-child(odd) {background-color:#fff}   
+.tr_ChangeBG tr:nth-child(even) {background-color:#f7e6f8}  
+
+.tr_ChangeTXT tr:nth-child(odd) {color:red}   
+.tr_ChangeTXT tr:nth-child(even) {color:blue}  
+ 
+
+.TableInverseTitle th{
+    color: #FFFFFF; 
+    font-size: 12px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    letter-spacing: 0px; 
+    line-height: 20px;
+    vertical-align:middle;
+    background-color:#0066cc
+}
+
+.TableInverseTitle_th{
+    color: #FFFFFF; 
+    font-size: 12px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    letter-spacing: 0px; 
+    line-height: 20px;
+    vertical-align:middle;
+    background-color:#0066cc
+}
+
+.TableTitle th{
+    color: #000; 
+    font-size: 12px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    letter-spacing: 0px; 
+    line-height: 20px;
+    vertical-align:middle;
+    background-color:#eae9e9;
+}
+
+
+
+.a {
+    color: #333;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: underline;
+}
+
+.a:link, .a:visited,
+.a:active, .a:hover {
+        color: #333;
+    }
+
+.a:hover {
+        background-color: #c7d1d6;
+    }
+
+
+    .checkbox {
+        vertical-align: middle;
+        margin-top: -2px;
+        margin-bottom: 1px;
+    }
+
+    .radio {
+        vertical-align: middle;
+        margin-top: -2px;
+        margin-bottom: 1px;
+    }
+
+    .NoEmpty
+{
+ color:Red;
+}

@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "技术文件-主页";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+@Html.Partial("ManageJSPartial")
+
+
+
+<style type="text/css">
+    .HighlineBG {
+        background-color: #efe3f7;
+    }
+
+
+    .TextArea01 {
+        width: 100%; /*自动适应父布局宽度*/
+        overflow: auto;
+        word-break: break-all; /*在ie中解决断行问题(防止自动变为在一行显示，主要解决ie兼容问题，ie8中当设宽度为100%时，文本域类容超过一行时，当我们双击文本内容就会自动变为一行显示，所以只能用ie的专有断行属性“word-break或word-wrap”控制其断行)*/
+    }
+</style>
+
+ 
+ 
+<!-- 表格 -->
+<link rel="stylesheet" href="@Url.Content("~/Scripts/JQGrid/ui.jqgrid.css")" type="text/css" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/JQGrid/jquery.jqGrid.min.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/JQGrid/grid.locale-cn.js")" type="text/javascript"></script>
+
+<div id="div_MList">
+
+
+    <table style="width:100%" id="filterArea">
+        <tr>
+            <td align="left">
+                <!-- start of right content -->
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td>
+                            <span style="font:bold 14px/0px Verdana, Geneva, sans-serif;">
+                                <img src='@Url.Content("~/images/star.gif")' />技术文件<img style="display:none" id="checking" src='@Url.Content("~/images/grid-loading.gif")' />
+                            </span>
+                        </td>
+                        <td width="80" align="right"><span id="myhelp"><a href='@Url.Content("~/Account/Login")'>登入</a></span></td>
+                    </tr>
+                </table>
+                <hr />
+            </td>
+        </tr>
+ 
+ 
+
+        <tr class="PEdit">
+            <td align="left">
+                @{
+                    System.Data.DataTable dt_Product = ViewBag.dt_Product;
+                    if (dt_Product.Rows.Count == 0)
+                    {
+                        Response.Write("<h3>该笔数据已经被删除!</h3>");
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+
+                <table align="left" style="width:100%;" border="0" cellspacing="8" cellpadding="0">
+
+                    <tr>
+                        <td class="Title" width="70px"><span>文章编号：</span></td>
+                        <td>@dt_Product.DefaultView[0]["artid"].ToString()</td>
+                    </tr>
+                    <tr>
+                        <td class="Title" ><span>文件类型：</span></td>
+                        <td>
+                            @dt_Product.DefaultView[0]["classname"].ToString()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Title" width="70px"><span>关键字：</span></td>
+                        <td><b>@dt_Product.DefaultView[0]["keywords"].ToString()</b></td>
+                    </tr>
+
+                    <tr><td class="Title"><span>内容：</span></td><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_ArtContent">@dt_Product.DefaultView[0]["ArtContent"].ToString()</textarea> </td></tr>
+                    <tr>
+                        <td class="Title"><span>上传文件</span></td>
+                        <td>
+                            <div id="FileArea01"></div>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+
+
+<div id="run_msg"></div>
+<input type="hidden" name="inp_ArtID" value="@dt_Product.DefaultView[0]["artid"].ToString()" />
+<input type="hidden" name="inp_PageMode" value="@ViewBag.PageMode" />
+<input type="hidden" name="inp_PageID" value="@ViewBag.PageID" />
+
+
+<script type="text/javascript">
+    var Flag_Save = false;
+
+ 
+    //----------------------------------------------------------- Ready
+    jQuery(document).ready(function () {
+        LoadFileList();
+    });
+
+    //载入档案清单
+    function LoadFileList() {
+
+
+        $.get('@Url.Action("File_List", "CommonService")?strArtID=' + $('[name=inp_ArtID]').val() + " &strPageID=" + $('[name=inp_PageID]').val() + "&strPageMode=" + $('[name=inp_PageMode]').val() + '&t1=' + (new Date()).getTime(), function (data) {
+            $("#FileArea01").html(data);
+
+            $("[name=FileDelete]").unbind('click').bind('click', function () {
+
+                if (confirm('确定要删除吗？')) {
+                    $.get('@Url.Action("File_Del", "CommonService")??strArtID=' + $('[name=inp_ArtID]').val() + '&strUUID=' + $(this).attr('id') + " &strPageID=" + $('[name=inp_PageID]').val() + '&t1=' + (new Date()).getTime(), function (data) {
+                        //$("#run_msg").html(data);
+                        LoadFileList();
+                    });   //end of get
+                }
+
+            });
+
+        });   //end of get
+    }
+
+</script>

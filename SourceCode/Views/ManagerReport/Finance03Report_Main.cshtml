@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "消费充值系统-报表作业-康桥学校打印消费";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+@Html.Partial("ManageJSPartial")
+
+<style type="text/css">
+
+</style>
+
+<style>
+    .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height: auto;
+        vertical-align: text-top;
+        padding-top: 2px;
+        word-break: break-all;
+    }
+</style>
+
+
+@Html.Partial("ManageMenuPartial")
+<!-- 表格 -->
+<link rel="stylesheet" href="@Url.Content("~/Scripts/JQGrid/ui.jqgrid.css")" type="text/css" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/JQGrid/jquery.jqGrid.min.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/JQGrid/grid.locale-cn.js")" type="text/javascript"></script>
+
+
+<table style="width:100%" id="filterArea">
+    <tr>
+        <td style="text-align:left">
+            请选择导出月份：<select name="inp_Month"></select> &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type='button' value='导出月报表' name='btn_MenuqQuery' />
+        </td>
+    </tr>
+</table>
+<table id="ListTable01" class="QG"></table>
+<div id="run_msg"></div>
+<div id="div_PopEditor"></div>
+<input type="hidden" name="inp_Key">
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+
+
+        $("[name=inp_Month]").append("@Html.Raw(@ViewBag.SelectItem)");
+
+
+
+    });
+
+
+
+
+
+
+    $("[name=btn_MenuqQuery]").bind("click", function () {
+
+        window.location.href = '@Url.Action("LoadFinance03Report", "ManagerReport")?strMonth=' + $("[name=inp_Month]").val() + '&_=' + (new Date()).getTime();
+
+    });
+
+
+
+</script>
+

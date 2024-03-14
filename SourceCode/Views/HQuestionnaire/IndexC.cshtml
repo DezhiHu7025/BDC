@@ -1,0 +1,277 @@
+﻿@{
+    ViewBag.Title = "2018-2019第二学期双语班-亲师联络调研（5月）";
+    Layout = "~/Views/Shared/_ClientLayout2.cshtml";
+}
+
+<link href="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" media="screen" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.zh-CN.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.fr.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/app_js/jquery.form.js")" type="text/javascript"></script>
+
+<!-- 表格 -->
+
+
+<div class="container text-left" style="background:#ffffff;padding:0px;margin:0px">
+
+
+
+    <!-- 登入/start -->
+    <div style="padding-left:15px;padding-right:15px;">
+
+
+        <form id="form1">
+            <input type="hidden" name="inp_AccountID" value="@ViewBag.AccountID" />
+            <input type="hidden" name="inp_DeptID" value="@ViewBag.DeptID" />
+            <input type="hidden" name="inp_ActivityName" value="AC20190517_1" />  <!--双语班-->
+
+            <div class="row" style="font-weight:700">
+                <div id="myAlert" class="alert alert-danger" style="font-size: 20px;margin-top:10px">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>
+
+                        亲爱的家长您好：
+                        感谢您拨冗参与康桥双语部家长满意度调研，请您依科目填写意见或建议，若没有任何建议请忽略本次调研，双语部期待通过您的宝贵建议来改善我们的教育教学，与您共建孩子们的幸福校园（本次匿名调研，截止至5月23日16:00）。
+
+                    </strong>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-12 col-xs-12 col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <label>母班班级(Homeroom)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" style="max-width:150px" name="inp_ClassCN" />
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-6 col-lg-6" ">
+                    <div class="form-group">
+                        <label>英文班级(English Classroom)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" style="max-width:150px" name="inp_ClassEN" />
+                    </div>
+                </div>
+
+            </div>
+
+            <!--
+    1、班主任Home Teacher（500字以内）
+    2、中师英文课CET（500字以内）
+    3、外师英文课FET（500字以内）
+    4、田园Rural（500字以内）
+    5、科学Science（500字以内）
+    6、信息Technology（500字以内）
+    7、美术Art（500字以内）
+    8、音乐Music（500字以内）
+    9、社团Club（500字以内）
+    10、体育PE（500字以内）
+    11、探索AE（500字以内）
+    12、游泳Swimming（500字以内）
+    13、其他建议或意见Other comments or suggestions（500字以内）
+
+
+                    -->
+            <!--题目开始-->
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>班主任Homeroom Teacher（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content1" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>中师英文课CET（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content2" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>外师英文课FET（500字以内） <span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content3" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>田园Rural（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content4" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>科学Science（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content5" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>信息Technology（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content6" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>美术Art（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content7" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>音乐Music（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content8" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>社团Club（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content9" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>体育PE（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content10" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>探索AE（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content11" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>游泳Swimming（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content12" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+
+         
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12">
+                    <label>其他建议或意见Other comments or suggestions（500字以内）<span class="text-danger"></span></label>
+                    <textarea class="form-control" name="text_Content13" rows="3" style="min-width: 90%"></textarea>
+                </div>
+            </div>
+            <!--题目结束-->
+
+            <div class="row" style="margin-top:20px;text-align:center">
+                <div class="col-xs-12 col-lg-12"><button type="button" class="btn btn-lg btn-primary send-btn" name="btn_Send" id="btn_Send">提交(Submit)</button></div>
+            </div>
+
+
+
+        </form>
+    </div>
+    <!-- 登入/end -->
+
+
+</div>
+
+<!--頁腳/開始-->
+<footer class="mt-5 bg-dark footer-content" style="background:#ffffff">
+    <p class="text-center text-white mb-0 mt-0"> </p>
+</footer>
+<!--頁腳/結束-->
+
+
+
+
+<script type="text/javascript">
+    var FormID = "LeaDay";  //模版1-1
+    var strSourceType = '@ViewBag.SourceType';
+    jQuery(document).ready(function () {
+
+
+
+        //模版1-2
+        $("#Menu_Title").html($("#Menu_" + FormID).find("a").html());
+        $("#Menu_Root li").each(function () {
+            if ($(this).hasClass("active"))
+                $(this).removeClass();
+        })//end of each
+        $("#Menu_" + FormID).addClass("active");
+
+
+    });
+
+
+    $("#btn_Send").bind("click", function () {
+
+        SendForm();
+
+    });
+
+  //储存数据
+    function SendForm() {
+
+
+
+        if ($("[name=inp_ClassCN]").val() == '') {
+            alert('请输入母班班级!');
+            $("input[name=inp_ClassCN]").focus();
+            return false;
+        }
+        if ($("[name=inp_ClassEN]").val() == '') {
+            alert('请输入英文班级!');
+            $("input[name=inp_ClassCN]").focus();
+            return false;
+        }
+
+
+
+        //if ($("#spn_cname").text()== '') {
+        //    alert("学号有误！(Student number is wrong!)");
+        //    return;
+        //}
+
+
+        //开始上传
+        $("#form1").ajaxSubmit({
+            success: showResponse,
+            error: function (data) { alert(data); },
+            url: '@Url.Action("Fill_SendFormAjax", "HQuestionnaire")',
+            type: "Post",
+            dataType: null
+        });
+
+        return false;
+
+
+
+    }  //end of func
+
+    //数据储存CallBack
+    function showResponse(responseText, statusText) {
+
+        if (responseText.indexOf("[Error]") >= 0) {
+            alert("對不起，送单失败，目前系统正在维修中！(Sorry, Appling is fail!)");
+            return false;
+        } else if (responseText.indexOf("{Error}") >= 0) {
+            alert(responseText.replace("{Error}", ""));  //客制化讯息
+            return false;
+        }
+
+        $("#btn_Send").hide();
+
+        //alert(responseText);
+        window.location.href = '@Url.Content("~/HQuestionnaire/QuestionnaireMessage")';
+
+
+        return false;
+    }
+
+
+</script>
+

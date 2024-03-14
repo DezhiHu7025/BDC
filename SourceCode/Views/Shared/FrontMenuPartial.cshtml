@@ -1,0 +1,18 @@
+﻿@{ Kcis.Models.UserModel user = (Kcis.Models.UserModel)Session["UserProfile"];}
+<a href="#popupMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext ui-btn-b ui-btn-inline">Icon only</a>
+<div data-role="popup" id="popupMenu" data-theme="b">
+    <ul data-role="listview" data-inset="true" style="min-width:210px;">
+        <li data-role="list-divider">登入者：@ViewBag.userName</li>
+        <li><a rel="external" href="@Url.Content("~/Account/LogIn")" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all  ui-btn-icon-right">登出</a></li>
+        <li><a rel="external" href="@Url.Content("~/CarLED/EastDoor_Main")" data-icon="grid" data-role="list-divider">东门入校车辆</a></li>
+        <li><a rel="external" href="@Url.Content("~/CarLED/EastDoorMen_Main")" data-icon="grid" data-role="list-divider">东门入校车人</a></li>
+        <li><a rel="external" href="@Url.Content("~/CarLED/KindergartenReadOnly_Main")" data-icon="grid" data-role="list-divider">幼儿园车入校</a></li>
+        <li><a rel="external" href="@Url.Content("~/CarLED/BilingReadOnly_Main")" data-icon="grid" data-role="list-divider">小学车入校(混)</a></li>
+        <li><a rel="external" href="@Url.Content("~/Student/Index")" data-icon="grid" data-role="list-divider">班级车接</a></li>
+        <li><a rel="external" href="@Url.Content("~/ClassGroup/Index")" data-icon="shop" data-role="list-divider">班级群组车接</a></li>
+        <li><a rel="external" href="@Url.Content("~/SpecificGroup/Index")" data-icon="gear" data-role="list-divider">活动名单车接</a></li>
+
+
+    </ul>
+</div>
+<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left  ui-btn-icon-notext ui-icon-search" id="menu_Query">查询</button>

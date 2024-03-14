@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "学生事务系统";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+@Html.Partial("ClientMenuPartial")
+<link href="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" media="screen" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.zh-CN.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.fr.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/app_js/jquery.form.js")" type="text/javascript"></script>
+
+<!-- 表格 -->
+
+
+<div class="container text-center clearfix" style="background:#ffffff;padding:5px;margin:1px">
+
+
+
+    <!-- ListPage/start -->
+    <div style="background:#ffffff;margin:10px" id="ListPage">
+        &nbsp;
+
+        <div style="text-align:center;padding-top:5px;padding-bottom:5px;font-size:20px"><b>历史表单查询</b><br>History Form Request List</div>
+
+        <div class="row">
+            <div class="hidden-xs hidden-sm col-dm-12" style="background:#ffffff;padding:10px;margin:10px">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">单号(No)</th>
+                            <th style="text-align:center">单别(Kind)</th>
+                            <th style="text-align:center">填单日期(Apply Date)</th>
+                            <th style="text-align:center">状态(Status)</th>
+                            <th style="text-align:center">说明(Remark)</th>
+                            <th style="text-align:center">检视(Detail)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_Body1">
+
+                        <!-- loop here-->
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- col2 begin -->
+            <div class="col-xs-12 col-sm-12 visible-xs visible-sm" id="div_Body1">
+
+                <!-- loop here-->
+
+            </div> <!-- col2 end -->
+
+
+
+        </div> <!-- row/end -->
+    </div>  <!-- ListPage/end -->
+    <!-- Detail Page/Begin -->
+   
+    <div style="margin:10px;display:none" id="DetailPage">&nbsp;
+    .
+        <div style='text-align:center;margin-top:5px;padding-top:5px;padding-bottom:10px;font-size:20px'><b>表单内容</b></div>
+        
+        <!-- Detail here-->
+        <div id="div_Body2"></div>
+        
+        <div class="alert alert-success text-center text-lg-center" role="alert" style="margin:10px"><strong>签核记录(Sign History)</strong></div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="text-align:center">#</th>
+                    <th style="text-align:left">签核人</th>
+                    <th style="text-align:left">签核结果</th>
+                    <th style="text-align:left">签核意见</th>
+                </tr>
+            </thead>
+            <tbody id="table_Body2">
+
+                <!-- loop here-->
+
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary" name="btn_Back">返回清单页(Back)</button>
+
+
+
+    </div><!-- Detail Page/End -->
+
+
+</div>
+
+
+
+    <script type="text/javascript">
+        var FormID = "LeaQuery";  //模版1-1
+        jQuery(document).ready(function () {
+   
+            //模版1-2
+            $("#Menu_Title").html($("#Menu_" + FormID).find("a").html());
+            $("#Menu_Root li").each(function () {
+                if ($(this).hasClass("active"))
+                    $(this).removeClass();
+            })//end of each
+            $("#Menu_" + FormID).addClass("active");
+
+            MainList();
+
+          
+            
+        }); //end of ready
+
+  
+        $(document).on('click', '[name=btn_View]', function () {
+            $("#ListPage").hide();
+            $("#DetailPage").show();
+            strSerialID = $(this).attr("title");
+            History_DetailAndHistorySignList(strSerialID)
+        });
+
+        $(document).on('click', '[name=btn_Back]', function () {
+            $("#DetailPage").hide();
+            $("#ListPage").show();
+  
+        });
+
+
+         //載入表单明细資料
+        function History_DetailAndHistorySignList(strSerialID) {
+     
+        //$("#run_msg").html("资料查询中...");
+        //$("#run_msg").dialog({ title: '学生证停用', resizable: false, closeText: 'hide', height: 170, width: 500, modal: true, close: function (event, ui) { LoadList(); } });
+
+        var strParameter = "strSerialID=" + strSerialID;
+
+        var strURL = '@Url.Action("History_DetailAndHistorySignList", "Manager")?';
+        if (strParameter.indexOf("Dorm") >= 0)
+            strURL = '@Url.Action("History_DormBIDetailAndHistorySignList", "Manager")?';
+        
+        $.getJSON(strURL + strParameter + '&t1=' + (new Date()).getTime(), function (data) {
+ 
+            $.each(data, function (i, result) {
+                var strStatus = result["strStatus"];
+                var strMessage = result["strMessage"];
+                var strTableBody = result["strTable"];
+                var strDeatil = result["strDeatil"];
+                
+                $("#table_Body2").html('');
+                if (strStatus == '[error]') {
+
+                    //$('#run_msg').css("color", "red");
+                    alert(strMessage);
+                    return false;
+
+                } else if (strStatus == '[alert]') {
+
+                    alert(strMessage);
+                    return false;
+
+                }
+            
+                
+                $("#div_Body2").html(strDeatil);
+                $("#table_Body2").html(strTableBody);
+                
+            }); //end of each
+
+
+            
+        }); //end of get
+    }//end of func
+
+
+    //主清单載入資料
+    function MainList() {
+     
+        //$("#run_msg").html("资料查询中...");
+        //$("#run_msg").dialog({ title: '学生证停用', resizable: false, closeText: 'hide', height: 170, width: 500, modal: true, close: function (event, ui) { LoadList(); } });
+
+        //var strParameter = "strAccountID=" + strKey;
+        var strParameter = "";;
+        $.getJSON('@Url.Action("History_MainList", "Manager")?' + strParameter + '&t1=' + (new Date()).getTime(), function (data) {
+ 
+ 
+            $.each(data, function (i, result) {
+                var strStatus = result["strStatus"];
+                var strMessage = result["strMessage"];
+                var strTableBody = result["strTable"];
+                var strListBody = result["strList"];
+                
+                $("#table_Body1").html('');
+                if (strStatus == '[error]') {
+
+                    //$('#run_msg').css("color", "red");
+                    alert(strMessage);
+                    return false;
+
+                } else if (strStatus == '[alert]') {
+
+                    alert(strMessage);
+                    return false;
+
+                }
+            
+                $("#table_Body1").html(strTableBody);
+                $("#div_Body1").html(strListBody);
+                
+            }); //end of each
+
+
+            
+        }); //end of get
+    }//end of func
+
+    </script>
+

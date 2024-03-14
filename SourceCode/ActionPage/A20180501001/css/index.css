@@ -1,0 +1,39 @@
+html,body,ul,ol,li,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,img{ margin:0;padding:0;}
+fieldset,img,textarea{ border:0;}/*去掉边框*/
+li{ list-style:none;}/*去掉列表样式*/
+h1,h2,h3,h4,h5,h6{ font-weight:normal;}
+h2{font-size: 16px; font-size: 1rem;color: #333; line-height: 35px;}
+/*设置链接*/
+a{ text-decoration:none; }
+li,a:hover{ text-decoratrion:none; cursor: pointer;}
+/*特殊声明*/
+body{ font-size:1em; background-color: #fff; color:#555555;font-family:"Helvetica Neue",Helvetica,Arial,"微软雅黑",sans-serif;position: relative;}
+td, input, div, textarea,table,select{font-family:"Helvetica Neue",Helvetica,Arial,"微软雅黑",sans-serif;}
+.clearfix:after{ content:"."; clear:both; display:block; height:0; visibility:hidden;}
+.clearfix{ zoom:1;clear: both; }
+.clear{clear: both; }
+img{ width: 100%;  } 
+body{	background:#fff;
+}
+.layout_bd{
+	width: 768px; height: 100%; margin: 0 auto; 
+	font-family:'Microsoft YaHei',Arial;
+	font-size:100%;
+	background: url(../img/bg.jpg) repeat 100% 100%;
+  padding-bottom: 1px;
+
+}
+.layout_main{  height: 100%;}
+.title{background: url(../img/head.jpg) no-repeat 0 0; width: 100%; height:239px;background-size:100% 100%; font-size: 36px; color: #fff; text-align: center; line-height: 48px; padding-top: 30px;font-weight: bold;  }
+.content{width: 80%; margin:10px auto 20px; border: solid 1px #000; border-radius: 5px; background: #fff; padding: 15px; }
+.content p{ margin-bottom: 20px;}
+.content li{line-height: 24px; border-bottom: dashed 1px #b79a6d; margin-top: 10px; padding-bottom: 10px;}
+.content h4{ line-height: 35px; text-align: center;font-size: 20px; font-weight: bold;width: 70%; margin: 0 auto;}
+.num_bg{width: 20px; height: 20px; background: #e39542; color: #fff; display: inline-block; text-align: center; line-height: 20px; margin-right: 5px;font-size: 14px;}
+strong{color: #920783;}
+.question{ background: #019fa8; line-height: 30px; border-radius:10px; color: #fff; padding:0 10px; margin: 20px 0 10px; display: inline-block;}
+.teacher{line-height: 18px;font-size: 14px;}
+@media (max-width:640px){
+	.layout_bd{width: 100%; height: auto;}
+	.title{width: 100%; max-height: 120px; padding-top: 20px;font-size: 24px; line-height: 36px;}
+}

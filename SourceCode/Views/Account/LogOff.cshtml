@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@Html.Partial("ManageJS_MobilePartial")
+<!DOCTYPE html>
+
+<html>
+<body>
+    <div class="main_index">
+
+
+
+        <div>
+
+
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       closeWin()
+    });
+
+    function closeWin() {
+
+        try {
+            window.opener = window;
+            var win = window.open("", "_self");
+            win.close();
+            top.close();
+        } catch (e) { }
+
+
+    }
+
+</script>

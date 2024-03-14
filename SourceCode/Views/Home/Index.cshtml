@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div style="text-align:center">
+<table style="width:100%" border="0" cellspacing="0" cellpadding="16">
+    <tr>
+        @if (ViewBag.GroupIds.IndexOf("student") >= 0)
+        { 
+            <td><a href='@Href("~/Student/Index")'> <img style="width:120px;height:140px;border:0;" alt="点选进入功能" src='@Url.Content("~/Images/app/menu1.jpg")' /></a></td>
+            <td><a href='@Href("~/Student/Order")'> <img style="width:120px;height:140px;border:0;" alt="点选进入功能" src='@Url.Content("~/Images/app/menu2.jpg")' /></a></td>
+        }
+        @if (ViewBag.GroupIds.IndexOf("manager") >= 0)
+        {
+            <td><a href='@Href("~/Manager/Index") '> <img style="width:120px;height:140px;border:0;" alt="点选进入功能" src=' @Url.Content("~/Images/app/menu4.jpg") ' /></a></td>
+        }
+ 
+        @if (ViewBag.GroupIds.IndexOf("supplier") >= 0)
+        {
+            <td><a href='@Href("~/Supplier/Index") '> <img style="width:120px;height:140px;border:0;" alt="点选进入功能" src='@Url.Content("~/Images/app/menu3.jpg")' /></a></td>
+        } 
+   </tr>
+</table>  
+</div>
+
+<h2>系统使用注意事项:</h2>
+<ol class="round">
+    <li class="one">
+        <h5>管理专区</h5>
+        ●开放给管理群组使用，该群组主要成员是学校后勤单位<br/>
+        ●管理专区主要功能是(1)订单确认、(2)产品相关数据建立与维护、单据取消确认与作废(3)导出财务报表<br />
+
+    </li>
+    <li class="two">
+        <h5>厂商专区</h5>
+        ●开放给厂商群组使用，该群组成员是外部厂商<br />
+        ●厂商专区主要功能是(1)交货时采购单确认、(2)依据求建立退换货单(3)导出相关报表<br />
+ 
+
+    </li>
+
+</ol>
+
+<div style="color:#ffffff">
+@ViewBag.UserGroup  <br/>
+@ViewBag.HomePage <br />
+@ViewBag.ActionID (2:3-4, J表双语部, 3表三年级)<br/>
+GroupIds = @ViewBag.GroupIds
+
+</div>

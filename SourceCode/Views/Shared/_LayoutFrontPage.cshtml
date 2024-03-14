@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - </title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/themes/base/css")
+         
+        
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/app_js")
+        
+        @RenderSection("scripts", required: false)   
+     </head>
+    <body>
+         
+        <div id="content-wrapper">
+                <table width="100%" border="0" style="height:90px"><tr>
+                    <td>  <p class="site-title">@Html.ActionLink(Kcis.Models.Config.HeadTitle, "Index", "Home")</p></td>
+                    <td><div id="login"> @Html.Partial("_LoginPartial")</div>
+                    </td>
+                </tr></table>
+
+        </div>
+         
+        <div id="body">
+            
+            
+                @RenderBody()
+             
+        </div>
+ 
+
+
+    </body>
+</html>

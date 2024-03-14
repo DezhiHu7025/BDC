@@ -1,0 +1,380 @@
+﻿@{
+    ViewBag.Title = "学生事务系统";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+@Html.Partial("ClientMenuPartial")
+<link href="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" media="screen" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.zh-CN.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.fr.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/app_js/jquery.form.js")" type="text/javascript"></script>
+
+<!-- 表格 -->
+
+
+<div class="container text-left" style="background:#ffffff;padding:0px;margin:0px">
+
+
+    <!-- 登入/start -->
+    <div style="padding-left:10px;padding-right:10px;">
+        <div style="text-align:center;padding-top:20px;padding-bottom:30px;font-size:30px">小学住宿申请单<br></div>
+
+        <div class="panel panel-default" id="div_Form1">
+            <div class="panel-heading">
+                <h3 class="panel-title">为确保您个人权益, 请详读以下规定后, 表示愿意遵守确认住宿, 便于后续编排床位。</h3>
+            </div>
+            <div class="panel-body">
+
+                <ol>
+                    <li>宿舍管理规则: 请参阅康桥官网/校务公开/学校管理办法之「宿舍管理法」。</li>
+                    <li>床位编排: 统由生活辅导组老师依实务管理需要, 原住宿生行为常规, 分配住宿床位, 住宿生不得擅自更换, 违者以宿舍管理规则论处。</li>
+                    <li>住宿期间愿意履行并遵守宿舍作息规定，寝室为住宿及自习空间，一切个人活动以不影响他人安宁为原则。</li>
+                    <li>住宿期间愿意履行并遵守学校3C电子产品规定，每日就寝前上交3C电子产品。</li>
+                    <li>住宿期间愿意履行并遵守学校内务之规范要求。</li>
+                    <li>每周日需返校，返校时间为18:30—20:30。</li>
+                    <li>住宿申请均以一学期为限(依学校行事历规定), 不含星期五及寒暑假, 住宿生须于学期最后一天搬离宿舍, 不得留置任何物品, 学期中周五及寒暑假住宿应向学校申请，管理与收费等事宜，依”本校宿舍学期中周五及寒暑假住宿申请与管理要点”办理。</li>
+                    <li>宿舍内由学校所装设提供之设备，若损坏，由学校派员检修。前项设备之损坏或遗失，若属不正常使用所导致者，依「本校宿舍物品损坏赔偿标准规定赔偿」。</li>
+                    <li>寝具购买: 为维护学生个人卫生，统由学校代购7件组寝具，包括: 枕头、三件套(床单、被罩、枕头套)、冬被、夏被及保洁垫，以统一外观样式，上述寝具价格由总务部依市价订购。 (购买寝具适用于新住宿生)床垫由学校统一配置，若床垫产生污损照价赔偿(人民币:350元)。</li>
+                    <li>如有未尽事宜，活动中心舍务组随时公告，全体住宿生均应遵守。</li>
+                </ol>
+
+            </div>
+ 
+        </div>
+
+        <form id="form1">
+            <input type="hidden" name="inp_AccountID" value="@ViewBag.AccountID" />
+            <input type="hidden" name="inp_DeptID" value="@ViewBag.DeptID" />
+            <input type="hidden" name="inp_SequenceID" value="@ViewBag.SequenceID" />
+
+            <div class="row" style="font-weight:700">
+                <div class="col-xs-12">单号：@ViewBag.SequenceID </div>
+            </div>
+
+            <div class="row" style="font-weight:700">
+                <div class="col-xs-12 col-sm-6 col-lg-3">填单日期(Apply Date)：@ViewBag.ToDay </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3">班级(Class)：<span id="spn_deptid"></span></div>
+                <div class="col-xs-12 col-sm-6 col-lg-3" style="display:none" id="div_ApplyIDR">学号(Student NO)：@ViewBag.AccountID </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3  form-inline" style="display:none" id="div_ApplyIDW">学号(Student NO)：<input class="form-control" size="6" type="text" name="inp_ApplyIDW" placeholder="填写学号" value=""> </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3">姓名(Name)：<span id="spn_cname"></span></div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-6 col-xs-6 col-sm-3">
+                    <div class="form-group">
+                        <label>学年<span class="text-danger">*</span></label>
+                        <select class="form-control" name="sel_Form_Year">@Html.Raw(@ViewBag.ClassList)</select>
+                    </div>
+                </div>
+                <div class="col-6 col-xs-6 col-sm-3">
+                    <div class="form-group">
+                        <label>学期<span class="text-danger">*</span></label>
+                        <select class="form-control" name="sel_Form_Section"> <option value="">请选择</option><option value="S">春</option> <option value="F">秋</option></select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-6 col-xs-6 col-sm-3">
+                    <div class="form-group">
+                        <label>性别<span class="text-danger">*</span></label>
+                        <select class="form-control" name="sel_Form_Sex"> <option value="">请选择</option><option value="1">男</option> <option value="2">女</option></select>
+                    </div>
+                </div>
+                <div class="col-6 col-xs-6 col-sm-3">
+                    <div class="form-group">
+                        <label>学生电话<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" name="inp_Form_StudentCell" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px">
+
+                <div class="col-6 col-xs-6 col-sm-3">
+
+                    <div class="form-group">
+                        <label>家长电话(Cellphone)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" name="inp_Form_ParentCellA" />
+                    </div>
+                </div>
+                <div class="col-6 col-xs-6 col-sm-3">
+
+                    <div class="form-group">
+                        <label>关系<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" name="inp_Form_RelationA" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+
+                <div class="col-6 col-xs-6 col-sm-3">
+
+                    <div class="form-group">
+                        <label>家长电话(Cellphone)</label>
+                        <input type="text" class="form-control" size="12" name="inp_Form_ParentCellB" />
+                    </div>
+                </div>
+                <div class="col-6 col-xs-6 col-sm-3">
+
+                    <div class="form-group">
+                        <label>关系</label>
+                        <input type="text" class="form-control" size="12" name="inp_Form_RelationB" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3333333333333333333333333333333333-->
+            <div class="row" style="margin-top:20px">
+                <div class="col-6 col-xs-6 col-sm-3">
+                    <div class="form-group">
+                        <label>身高(cm)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" name="inp_Form_StudentHeight" />
+                    </div>
+                </div>
+                <div class="col-6 col-xs-6 col-sm-3">
+                    <div class="form-group">
+                        <label>出生年月日<span class="text-danger">*</span></label>
+                        <div class="input-group date form_date col-md-12" data-date="" data-date-format="yyyy/mm/dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="16" type="text" name="inp_Form_Birthday" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px;margin-bottom:20px">
+                <div class="col-xs-12 col-lg-12"><label>家庭住址<span class="text-danger">*</span></label>  <textarea class="form-control" id="text_Content" name="text_Form_Address" rows="1" style="min-width: 90%"></textarea> </div>
+            </div>
+
+            <div class="row" style="margin-top:20px;margin-bottom:20px">
+                <div class="col-xs-12 col-lg-12"><label>生活习惯或特殊注记</label>  <textarea class="form-control" id="text_Content" name="text_Form_Remark" rows="3" style="min-width: 90%"></textarea> </div>
+            </div>
+
+            <div class="panel panel-danger" id="div_Form2">
+                <div class="panel-heading">
+                    <h3 class="panel-title">注意事项</h3>
+                </div>
+
+                <div class="panel-footer">
+
+                    <ol>
+                        <li>开, 闭宿舍日期依学校当年度行事历规定, 寒、暑假辅导, 住宿费用另计。</li>
+                        <li>依规定双语部住宿费为每学期6500元人民币。</li>
+                        <li>学期中若学生因故办理退、转、休学者及罹患传染病、具攻击性精神疾病等申请退宿者，得准予依退费标准办理外，余均不得申请退费。</li>
+                        <li>住宿生若申请退宿经核定同意者, 办理退费标准请参阅官网。</li>
+
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px;text-align:center">
+                <div class="col-xs-12 col-lg-12"><button type="button" class="btn btn-primary send-btn" name="btn_Send" id="btn_Send">送出表单(Submit)</button></div>
+            </div>
+
+
+
+        </form>
+    </div>
+    <!-- 登入/end -->
+
+
+</div>
+
+<!--頁腳/開始-->
+<footer class="mt-5 bg-dark footer-content" style="background:#ffffff">
+    <p class="text-center text-white mb-0 mt-0"> </p>
+</footer>
+<!--頁腳/結束-->
+
+
+
+
+<script type="text/javascript">
+    var FormID = "DormBI";  //模版1-1
+    var strSourceType = '@ViewBag.SourceType';
+    jQuery(document).ready(function () {
+
+        if (strSourceType == "A")
+            $("#div_ApplyIDW").show();
+        else {
+            $("[name=inp_ApplyIDW]").val('@ViewBag.AccountID')
+            $("#div_ApplyIDR").show();
+            GetFullName();
+        }
+        //模版1-2
+        $("#Menu_Title").html($("#Menu_" + FormID).find("a").html());
+        $("#Menu_Root li").each(function () {
+            if ($(this).hasClass("active"))
+                $(this).removeClass();
+        })//end of each
+        $("#Menu_" + FormID).addClass("active");
+
+        //日历初始化
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+        $('.form_time').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,
+            minView: 0,
+            maxView: 1,
+            forceParse: 0
+        });
+
+    });
+
+
+    $("#div_ApplyIDW").bind("change", function () {
+
+        GetFullName()
+
+    });
+
+    //取回班级、姓名
+    function GetFullName(){
+
+        $.getJSON('@Url.Action("Fill_GetFullNameAjax", "LeaDay")?strAccountID=' + $("[name=inp_ApplyIDW]").val() + '&t1=' + (new Date()).getTime(), function (data) {
+
+            $.each(data, function (i, result) {
+                var strStatus = result["strStatus"];
+                var strMessage = result["strMessage"];
+
+                if (strStatus == '[error]') {
+                    alert(strMessage)
+                    return false;
+                } else if (strStatus == '{error}') {
+                    alert(strMessage)
+                    return false;
+                } else {
+
+                    $("#spn_cname").text(result["FullName"]);
+                    $("#spn_deptid").text(result["DeptID"]);
+                }
+
+
+            }); //end of each
+
+        }); //end of GetJason
+    }// end of func
+
+    $("#btn_Send").bind("click", function () {
+
+        SendForm();
+
+    });
+
+  //储存数据
+    function SendForm() {
+
+        
+        if ($("[name=sel_Form_Year]").val() == '') {
+            alert("请选择学年！");
+            return;
+        }
+
+        if ($("[name=sel_Form_Section]").val() == '') {
+            alert("请选择学期！");
+            return;
+        }
+
+        if ($("[name=inp_Form_StudentCell]").val() == '') {
+            alert("请填写学生电话！");
+            return;
+        }
+
+        if ($("[name=inp_Form_ParentCellA]").val() == '') {
+            alert("请填写家长电话！");
+            return;
+        }
+
+        if ($("[name=inp_Form_RelationA]").val() == '') {
+            alert("请填写关系！");
+            return;
+        }
+
+        if ($("[name=sel_Form_Sex]").val() == '') {
+            alert("请选择性别！");
+            return;
+        }
+
+        if ($("[name=inp_Form_StudentHeight]").val() == '') {
+            alert("请填写身高！");
+            return;
+        }
+
+        if ($("[name=text_Form_Address]").val() == '') {
+            alert("请填写家庭住址！");
+            return;
+        }
+
+        if (strSourceType == "A") {
+            if ($("[name=inp_ApplyIDW]").val().length >= 5)
+                $("[name=inp_AccountID]").val($("[name=inp_ApplyIDW]").val());
+            else {
+                alert("请填写学号！(Student NO cannot empty!)");
+                return;
+
+            }
+
+        }
+
+
+        if ($("#spn_cname").text()== '') {
+            alert("学号有误！(Student number is wrong!)");
+            return;
+        }
+
+        //开始上传
+        $("#form1").ajaxSubmit({
+            success: showResponse,
+            error: function (data) { alert(data); },
+            url: '@Url.Action("Fill_SendFormAjax", "DormBI")',
+            type: "Post",
+            dataType: null
+        });
+
+        return false;
+
+
+
+    }  //end of func
+
+    //数据储存CallBack
+    function showResponse(responseText, statusText) {
+        //alert(responseText)
+        if (responseText.indexOf("[Error]") >= 0) {
+            alert("對不起，送单失败，目前系统正在维修中！(Sorry, Appling is fail!)");
+            return false;
+        } else if (responseText.indexOf("{Error}") >= 0) {
+            alert(responseText.replace("{Error}", ""));  //客制化讯息
+            return false;
+        }
+
+        $("#btn_Send").hide();
+
+        alert(responseText);
+        window.location.href = '@Url.Content("~/Manager/History_MainPage")';
+
+
+        return false;
+    }
+
+
+</script>
+

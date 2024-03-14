@@ -1,0 +1,29 @@
+/* 上下內距 */
+.box-30{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+/* 向上外距 */
+.mt-60{
+	margin-top: 60px;
+}
+/* 頁腳 */
+.footer-content{
+    height: 60px;
+    line-height: 60px;
+}
+/* 廣告背景 */
+.header{
+	/* 上下內距，左右內距值為零 */
+	padding: 50px 0px;
+	/* 背景圖片來源 */
+	background-image: url(../images/Banner.jpg);
+	/* 背景圖片尺寸 */
+	background-size: cover;
+	/* 圖片是否重複產生 */
+	background-repeat: no-repeat;
+	/* 背景圖片固定 */
+	background-attachment: fixed;
+	/* 圖片位置 */
+	background-position: top center;
+}

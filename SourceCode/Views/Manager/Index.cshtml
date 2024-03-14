@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "学生事务系统";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+@Html.Partial("ClientMenuPartial")
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap/bootstrap.bundle.min.js")" type="text/javascript"></script>
+
+<!-- 表格 -->
+
+
+<div class="container  text-left p-2" style="background:#ffffff">
+    <div class="row">
+        <div class="col-auto p-2" style="padding-left:10px;padding-top:5px; ">
+            <!-- Content/Start -->
+
+
+
+
+
+            <!-- Content/end -->
+        </div>  
+    </div>
+</div>
+
+
+<!--頁腳/開始-->
+<footer class="mt-5 bg-dark footer-content" style="background:#ffffff">
+    <p class="text-center text-white mb-0 mt-0"> </p>
+</footer>
+<!--頁腳/結束-->
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+
+
+    });
+
+    $("[name=btn_use1]").bind("click", function () {
+
+        $('[name=inp_DB]').val($('[name=inp_DB1]').val());
+
+    });
+
+    $("[name=btn_use2]").bind("click", function () {
+
+        $('[name=inp_DB]').val($('[name=inp_DB2]').val());
+
+    });
+
+
+
+    $("[name=btn_Load]").bind("click", function () {
+
+        Config_Load();
+    });
+
+    function Config_Load() {
+
+        var strParameter = "strName=";
+        strParameter +="&strValue="
+            //$("#icon_running").show();
+            //$('#spn_Message').html('');
+            //$('#spn_DeptID').html('');
+            //$('#spn_FullName').html('');
+            //$('#spn_AccountID').html('');
+
+
+            $.getJSON('@Url.Action("Config_Load", "SYS")?' + strParameter + '&t1=' + (new Date()).getTime(), function (data) {
+
+
+                $.each(data, function (i, result) {
+
+
+                    var strStatus = result["strStatus"];
+                    var strMessage = result["strMessage"];
+
+
+                    if (strStatus == '[ok]') {
+                        $('#div_Message').hide();
+                        $('#div_Edit').show();
+
+                        $('[name=inp_DB]').val(result["DBConnection"]);
+                        $('#inp_DB1').text("正式："+result["DB1"]);
+                        $('#inp_DB2').text("测式："+result["DB2"]);
+                        //$('[name=inp_DB2]').val(result["DB2"]);
+                        //alert("web.config载入成功～");
+
+                    } else {
+
+                        alert("web.config载入错误:" + strMessage);
+                    }
+
+
+
+                }); //end of each
+
+
+
+            }); //end of get
+
+
+        }//end of func
+
+
+    $("[name=btn_Save]").bind("click", function () {
+
+
+    });
+
+
+</script>
+

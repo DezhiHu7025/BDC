@@ -1,0 +1,349 @@
+﻿@{
+    ViewBag.Title = "小学部学生请假单";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+@Html.Partial("ClientMenuPartial")
+<link href="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" media="screen" />
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.zh-CN.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/bootstrap3.3.7/DateTime/js/locales/bootstrap-datetimepicker.fr.js")" type="text/javascript"></script>
+<script charset="utf-8" src="@Url.Content("~/Scripts/app_js/jquery.form.js")" type="text/javascript"></script>
+
+<!-- 表格 -->
+
+
+<div class="container text-left" style="background:#ffffff;padding:0px;margin:0px">
+
+
+
+    <!-- 登入/start -->
+    <div style="padding-left:10px;padding-right:10px;">
+        <div style="text-align:center;padding-top:20px;padding-bottom:30px;font-size:30px"><b>小学部学生请假单<br>Leave Request</br></div>
+
+
+        <form id="form1">
+            <input type="hidden" name="inp_AccountID" value="@ViewBag.AccountID" />
+            <input type="hidden" name="inp_DeptID" value="@ViewBag.DeptID" />
+            <input type="hidden" name="inp_SequenceID" value="@ViewBag.SequenceID" />
+
+            <div class="row" style="font-weight:700" >
+                <div class="col-xs-12">单号：@ViewBag.SequenceID </div>
+            </div>
+
+            <div class="row" style="font-weight:700">
+                <div class="col-xs-12 col-sm-6 col-lg-3">填单日期(Apply Date)：@ViewBag.ToDay </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3">班级(Class)：<span id="spn_deptid"></span></div>
+                <div class="col-xs-12 col-sm-6 col-lg-3" style="display:none" id="div_ApplyIDR">学号(Student NO)：@ViewBag.AccountID </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3  form-inline" style="display:none" id="div_ApplyIDW">学号(Student NO)：<input class="form-control" size="6" type="text" name="inp_ApplyIDW" placeholder="填写学号" value=""> </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3">姓名(Name)：<span id="spn_cname"></span></div>
+            </div>
+
+
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-8 col-sm-6">
+                    <div class="form-group">
+                        <label>开始日期(Begin Day)<span class="text-danger">*</span></label>
+                        <div class="input-group date form_date col-md-12" data-date="" data-date-format="yyyy/mm/dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="16" type="text" name="inp_BeginDay1" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input1" value="" /><br />
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-6">
+                    <div class="form-group">
+                        <label>开始时间(Begin Time)<span class="text-danger">*</span></label>
+                        <div class="input-group date form_time col-md-12" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+                            <input class="form-control" size="16" type="text" value="" name="inp_BeginTime1" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                        <input type="hidden" name="dtp_input2" id="dtp_input2" value="" /><br />
+                    </div>
+
+                </div>
+                <div class="col-xs-8 col-sm-6">
+
+                    <div class="form-group">
+                        <label>结束日期(End Day)<span class="text-danger">*</span></label>
+                        <div class="input-group date form_date col-md-12" data-date="" data-date-format="yyyy/mm/dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="16" type="text" name="inp_EndDay1" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input3" name="dtp_input3" value="" /><br />
+                    </div>
+
+                </div>
+                <div class="col-xs-8 col-sm-6">
+
+                    <div class="form-group">
+                        <label>结束时间(End Time)<span class="text-danger">*</span></label>
+                        <div class="input-group date form_time col-md-12" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+                            <input class="form-control" size="16" type="text" name="inp_EndTime1" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input4" name="dtp_input4" value="" /><br />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 22222222222222222222222222222222-->
+            <div class="row" style="margin-top:20px">
+                <div class="col-12 col-xs-8 col-sm-6">
+                    <div class="form-group">
+                        <label>假别(Absent reason)<span class="text-danger">*</span></label>
+                        @if (ViewBag.SourceType == "A")
+                        {
+                        <select class="form-control" name="sel_VacationType"> <option value="">请选择</option><option value="sick">病假</option> <option value="personal">事假</option> <option value="affair">公假</option><option value="noschool">停课</option><option value="outsideschool">菁英课程</option></select>
+                        }
+                        else
+                        {
+                        <select class="form-control" name="sel_VacationType"> <option value="">请选择</option><option value="sick">病假</option> <option value="personal">事假</option> </select>
+                        }
+                    </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-3">
+                    <div class="form-group">
+                        <label>电话(Cellphone)<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" size="12" name="inp_Tel" />
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- 3333333333333333333333333333333333-->
+            <div class="row" style="margin-top:20px">
+                <div class="col-12 col-xs-12 col-sm-12">
+                    <div class="form-group">
+                        <label>乘车线别(Car Line)</label>
+                        <input type="text" class="form-control" size="12" name="inp_CarLine" />
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-lg-12"><label>事由(Remark)<span class="text-danger">*</span></label>  <textarea class="form-control" id="text_Content" name="text_Content" rows="3" style="min-width: 90%"></textarea> </div>
+            </div>
+
+            <div class="row" style="margin-top:20px;text-align:center">
+                <div class="col-xs-12 col-lg-12"><button type="button" class="btn btn-primary send-btn" name="btn_Send" id="btn_Send">送出假单(Submit)</button></div>
+            </div>
+
+
+            <div id="myAlert" class="alert alert-danger" style="font-size: 20px;margin-top:10px;color:blue">
+ 
+
+<strong><span class="glyphicon glyphicon-exclamation-sign"></span> <span style="color:blue">请假当日<span style="color:red">（下午16:00前）</span>提出申请者，请假期间<span style="color:red">（次日起）</span>不收餐费；<span style="color:red">期末结算退费。</span></span></strong>
+
+
+            </div>
+        </form>
+    </div>
+    <!-- 登入/end -->
+
+
+</div>
+
+<!--頁腳/開始-->
+<footer class="mt-5 bg-dark footer-content" style="background:#ffffff">
+    <p class="text-center text-white mb-0 mt-0"> </p>
+</footer>
+<!--頁腳/結束-->
+
+
+
+
+<script type="text/javascript">
+    var FormID = "LeaDay";  //模版1-1
+    var strSourceType = '@ViewBag.SourceType';
+    jQuery(document).ready(function () {
+        
+        if (strSourceType == "A")
+            $("#div_ApplyIDW").show();
+        else {
+            $("[name=inp_ApplyIDW]").val('@ViewBag.AccountID')
+            $("#div_ApplyIDR").show();
+            GetFullName();
+        }
+        //模版1-2
+        $("#Menu_Title").html($("#Menu_" + FormID).find("a").html());
+        $("#Menu_Root li").each(function () {
+            if ($(this).hasClass("active"))
+                $(this).removeClass();
+        })//end of each
+        $("#Menu_" + FormID).addClass("active");
+
+        //日历初始化
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+        $('.form_time').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,
+            minView: 0,
+            maxView: 1,
+            forceParse: 0
+        });
+
+    });
+
+    
+    $("#div_ApplyIDW").bind("change", function () {
+
+        GetFullName()
+
+    });
+
+    //取回班级、姓名
+    function GetFullName(){
+ 
+        $.getJSON('@Url.Action("Fill_GetFullNameAjax", "LeaDay")?strAccountID=' + $("[name=inp_ApplyIDW]").val() + '&t1=' + (new Date()).getTime(), function (data) {
+
+            $.each(data, function (i, result) {
+                var strStatus = result["strStatus"];
+                var strMessage = result["strMessage"];
+
+                if (strStatus == '[error]') {
+                    alert(strMessage)
+                    return false;
+                } else if (strStatus == '{error}') {
+                    alert(strMessage)
+                    return false;
+                } else {
+
+                    $("#spn_cname").text(result["FullName"]);
+                    $("#spn_deptid").text(result["DeptID"]);
+                }
+
+
+            }); //end of each
+
+        }); //end of GetJason
+
+
+
+
+
+    }
+
+    $("#btn_Send").bind("click", function () {
+
+        SendForm();
+
+    });
+
+  //储存数据
+    function SendForm() {
+
+        if ($("[name=inp_BeginDay1]").val() == '') {
+            alert("请假开始日期不可空白！(apply date cannot empty!)");
+            return;
+        }
+        if ($("[name=inp_EndDay1]").val() == '') {
+            alert("请假结束日期不可空白！(apply date cannot empty!)");
+            return;
+        }
+        if ($("[name=inp_BeginTime1]").val() == '') {
+            alert("请假开始时间不可空白！(apply date cannot empty!)");
+            return;
+        }
+        if ($("[name=inp_EndTime1]").val() == '') {
+            alert("请假结束时间不可空白！(apply date cannot empty!)");
+            return;
+        }
+
+
+        if ($("[name=sel_VacationType]").val() == '') {
+            alert("请选择假别！(Absent reason cannot empty!)");
+            return;
+        }
+
+
+
+        if ($("[name=inp_Tel]").val() == '') {
+            alert("请填写电话！(Telephone number cannot empty!)");
+            return;
+        }
+
+
+        if ($("[name=text_Content]").val() == '') {
+            alert("请填写事由！(Remark cannot empty!)");
+            return;
+        }
+
+        if (strSourceType == "A") {
+            if ($("[name=inp_ApplyIDW]").val().length >= 5)
+                $("[name=inp_AccountID]").val($("[name=inp_ApplyIDW]").val());
+            else {
+                alert("请填写学号！(Student NO cannot empty!)");
+                return;
+
+            }
+
+        }
+
+        
+        if ($("#spn_cname").text()== '') {
+            alert("学号有误！(Student number is wrong!)");
+            return;
+        }
+
+        //开始上传
+        $("#form1").ajaxSubmit({
+            success: showResponse,
+            error: function (data) { alert(data); },
+            url: '@Url.Action("Fill_SendFormAjax", "LeaDay")',
+            type: "Post",
+            dataType: null
+        });
+
+        return false;
+
+
+
+    }  //end of func
+
+    //数据储存CallBack
+    function showResponse(responseText, statusText) {
+        //alert(responseText)
+        if (responseText.indexOf("[Error]") >= 0) {
+            alert("對不起，送单失败，目前系统正在维修中！(Sorry, Appling is fail!)");
+            return false;
+        } else if (responseText.indexOf("{Error}") >= 0) {
+            alert(responseText.replace("{Error}", ""));  //客制化讯息
+            return false;
+        }
+
+        $("#btn_Send").hide();
+
+        alert(responseText);
+        window.location.href = '@Url.Content("~/Manager/History_MainPage")';
+
+
+        return false;
+    }
+
+
+</script>
+

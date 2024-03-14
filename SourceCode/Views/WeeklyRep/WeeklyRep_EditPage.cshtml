@@ -1,0 +1,632 @@
+﻿@{
+    System.Data.DataTable dt_Product = ViewBag.dt_Product;
+    if (dt_Product.Rows.Count == 0) { 
+        Response.Write("<h3>该笔数据已经被删除!</h3>");
+        Response.Flush();
+        Response.End();
+    }
+ }
+
+<input type="button" value="修改" name="btn_MenuEdit" />
+<input type="button" value="储存" name="btn_MenuSave" />
+<input type="button" value="放弃" name="btn_MenuCancel" />
+<input type="button" value="删除" name="btn_MenuDel" />&nbsp;&nbsp;
+
+<input type="button" value="导出检视网址" name="btn_MenuUrl" />&nbsp;&nbsp;
+<input type="button" value="发送通知" name="btn_MenuNotice" />&nbsp;&nbsp;
+<input type="button" value="关&nbsp;&nbsp;闭" name="btn_MenuClose" />
+<hr />
+
+ 
+
+<form action="@Url.Action("WeeklyRep_Save", "WeeklyRep")" id="form1" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="inp_PageMode" value="@ViewBag.PageMode" />
+    <input type="hidden" name="inp_PageID" value="@ViewBag.PageID" />
+    <input type="hidden" name="inp_Remark" value="" />
+    <table align="left" style="width:100%;" border="0" cellspacing="8" cellpadding="0">
+
+        <tr>
+            <td colspan="2">
+                <table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td class="Title" width="60px">周报编码</td>
+                        <td width="200px">&nbsp;&nbsp;<span>@dt_Product.DefaultView[0]["artid"].ToString()</span><input type="hidden" name="inp_ArtID" value="@dt_Product.DefaultView[0]["artid"].ToString()" /></td>
+
+
+
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="Title" colspan="2">
+                <span class="NoEmpty">文件类型</span>&nbsp;&nbsp;
+                <select name="inp_ClassID"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="NoEmpty">文档上线</span>&nbsp;&nbsp;
+                <select name="inp_Status"><option value="正常">上架</option><option value="已下架">下架</option></select>
+            </td></tr>
+        <tr>
+            <td class="Title" colspan="2"><span class="NoEmpty">周次</span>&nbsp;&nbsp;
+                <input type="text" name="inp_Rep_Num" style="width:50px" value="@dt_Product.DefaultView[0]["Rep_Num"].ToString()"  />&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="NoEmpty">日期区间&nbsp;&nbsp;</span><input type="text" name="inp_BeginDay" style="width:100px" value="@dt_Product.DefaultView[0]["Rep_BeginDate"].ToString()" />～<input type="text" name="inp_EndDay" style="width:100px" value="@dt_Product.DefaultView[0]["Rep_EndDate"].ToString()" />
+
+        </td></tr>
+        <tr>
+            <td class="Title" colspan="2">
+                <span class="NoEmpty">关键字</span>&nbsp;&nbsp;
+                <input type="text" name="inp_KeyWords" style="width:400px" value="@dt_Product.DefaultView[0]["KeyWords"].ToString()" /> 
+                 
+
+            </td>
+        </tr>
+         
+        <tr>
+            <td colspan="2" width="100%">
+                <hr/>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2" width="100%">
+                <b>
+                    <span>撰写格式：</span>
+                    <span class="NoEmpty">需求单位或自发原因 + 处理方式(处理过程) + 处理结果 + 进度 + 预计或实际完工日。</span>
+                </b>
+            </td>
+ 
+        </tr>
+
+
+        <tr>
+        <td class="Title" colspan="2" valign="top">
+            <table style="width: 100%;" border="0" cellspacing="15">
+                <tr>
+                    <td style="width: 50%;">
+                        <!-- 左栏 -->
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <b>【活动支持】</b><span class="NoEmpty">宇修负责</span> <p>
+                                    范例格式:<br>
+                                    <ol>
+                                        <li class="Example">
+                                            支援国际处1/8 ~ 1/11, 1/15, 1/16共6天的16:20-16:50举行班亲会架设投影及音响设备。
+                                        </li>
+                                    </ol>
+                                    
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_A1">@dt_Product.DefaultView[0]["Rep_A1"].ToString()</textarea></td></tr>
+
+                            <tr>
+                                <td>
+                                    <b>【系统开发与维护】</b><span class="NoEmpty">宇修负责</span><p>
+                                        范例格式:<br>
+                                                 <ol>
+                                                     <li class="Example">
+                                                         南后勤反应消费月报无法导出1/1~1/8消费记录，此问题目前已修复完成。
+                                                     </li>
+                                                     <li class="Example">
+                                                         由于PowerSchool转出学生数据错误持续与国际部教务余昇欣组长讨论，目前针对已转出学生从原本判断9999改为判断enrollStatus=2，资讯本周调整后再与PowerSchool对接测试。 <br />
+                                                     </li>
+                                                 </ol>
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_A2">@dt_Product.DefaultView[0]["Rep_A2"].ToString()</textarea></td></tr>
+
+                            <tr>
+                                <td>
+                                    <b>【PowerSchool维护】</b><span class="NoEmpty">张莹负责</span><p>
+                                        范例格式:<br>
+                                        <img src="@Url.Content("~/Images/WeekReport/PS.jpg")" style="border:0" />
+
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_A3">@dt_Product.DefaultView[0]["Rep_A3"].ToString()</textarea></td></tr>
+
+                            <tr>
+                                <td>
+                                    <b>【硬件设备维护】</b><span class="NoEmpty">建颖、刘威、亚运负责</span><p>
+                                        范例格式:<br>
+                                        <ol>
+                                            <li class="Example">
+                                                本周餐厅办公室网络失联，查询后原因为弱电机房柜脱落，已于1/1日当天13:00紧急维修完毕。
+                                            </li>
+                                            <li class="Example">
+                                                国际处需求-英语村大剧院投影机与布幕安装已于12/1日安装完成。
+                                            </li>
+                                            <li class="Example">
+                                                学务处需求A栋5F两间社团教室超短焦投影机与音箱已于12/1日安装完成。<br />
+                                            </li>
+                                        </ol>
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_A4">@dt_Product.DefaultView[0]["Rep_A4"].ToString()</textarea></td></tr>
+
+
+                        </table>
+
+                    </td>
+                    <td valign="top">
+                        <!-- 右栏 -->
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <b>【系统日常维护】</b><span class="NoEmpty">建颖、刘威、亚运负责</span><p>
+                                        范例格式:<br>
+
+                                        <ol>
+                                            <li class="Example">
+                                                四季星空与科普墙每周一上午设备例检。
+                                            </li>
+                                            <li class="Example">
+                                                车接系统每日家长车牌数据导入。
+                                            </li>
+                                            <li class="Example">
+                                                消费系统消费启用名单汇入。
+                                            </li>
+                                            <li class="Example">
+                                                本周三夜间及地奥视讯课程轮值。
+                                            </li>
+                                            <li class="Example">
+                                                本周学生卡补办约[40]张。
+                                            </li>
+                                            <li class="Example">
+                                                本周电脑软硬件维修[45]件,电脑损坏送原厂维修[1]件。
+                                            </li>
+                                            <li class="Example">
+                                                新进人员权限与系统服务开通[1]件。离职人员权限与系统服务关闭[1]件。
+                                            </li>
+                                            <li class="Example">
+                                                学生证换卡激活[9]件。
+                                            </li>
+                                        </ol>
+
+
+                                </td>
+                            </tr>
+
+
+                           
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_B1">@dt_Product.DefaultView[0]["Rep_B1"].ToString()</textarea></td></tr>
+
+                            <tr>
+                                <td>
+                                    <b>【网页/美工设计】</b><span class="NoEmpty">亚运负责</span><p>
+                                        范例格式:<br>
+                                                 <ol>
+                                                     <li class="Example">
+                                                         制作幼升小说明会议暖场视频，目前进度50%，预计12/1日完成。
+                                                     </li>
+                                                     <li class="Example">
+                                                         制作教务处尾牙视频与整理大数据内容，目前进度30%，预计12/3日完成。
+                                                     </li>
+                                                     <li class="Example">
+                                                         官网家长专区本周开始进行规划设计，目前进度50%，预计12/2日完成。<br />
+                                                     </li>
+                                                 </ol>
+
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_B2">@dt_Product.DefaultView[0]["Rep_B2"].ToString()</textarea></td></tr>
+
+                            <tr>
+                                <td>
+                                    <b>【协调事项】</b><span class="NoEmpty">宇修负责</span>
+                                    
+
+
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_B3">@dt_Product.DefaultView[0]["Rep_B3"].ToString()</textarea></td></tr>
+
+                            <tr> 
+                                <td>
+                                    <b>【宣导事项】</b><span class="NoEmpty">宇修负责</span>
+                                   
+
+                                </td>
+                            </tr>
+                            <tr><td><textarea class="comments" rows="10" style="font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;" name="inp_Rep_B4">@dt_Product.DefaultView[0]["Rep_B4"].ToString()</textarea></td></tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
+        </td></tr>
+        <tr><td colspan="2" class="Title">
+            
+                <table style="width:100%;" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td class="Title" width="60px" valign="top"><span>文件上传</span></td>
+                        <td><input class='EditMode' name="upfile" id="upfile1" type="file" style="width:200px" value="选择文档" /> <input type='button' class='EditMode' value='上传' name='btn_File01' /><div id="FileArea01"></div></td>
+
+
+
+                    </tr>
+                </table>
+            
+        </td></tr>
+
+    </table>
+</form> 
+
+<div style="font-size:16px"><b>---修改/优化记录---</b></div>
+<div id="div_ShowLog" />
+<script>
+
+    //PopPage 载入初始化
+    function SubPageReady() {
+
+
+        if ($("[name=inp_PageMode]").val() == 'Add')
+            AddMode()
+        else
+            ViewMode()
+
+        $("[name=inp_BeginDay]").attr({ 'readonly': 'readonly' }).addClass('Wdate').click(function () { WdatePicker({ dateFmt: 'yyyy/MM/dd' }); });
+        $("[name=inp_EndDay]").attr({ 'readonly': 'readonly' }).addClass('Wdate').click(function () { WdatePicker({ dateFmt: 'yyyy/MM/dd' }); });
+
+        //$("[name=inp_BeginDay]").val("2018/02/28");
+        //$("[name=inp_EndDay]").val("2018/03/30");
+       // alert('@dt_Product.DefaultView[0]["Rep_BeginDate"].ToString()')
+
+        $("[name=inp_ClassID]").append("@Html.Raw(@ViewBag.ClassList)");
+        $("[name=inp_ClassID]").val('@dt_Product.DefaultView[0]["Classid"].ToString()');
+
+        $("[name=inp_Status]").val('@dt_Product.DefaultView[0]["Status"].ToString()');
+
+        LoadFileList()
+
+
+    } // end of ready function
+
+
+    //进入编辑模式
+    $("[name=btn_MenuEdit]").bind("click", function () {
+        EditMode();
+
+    });
+
+    function AddMode() {
+        $('[name=inp_PageMode]').val('Add');
+        $("[name=btn_MenuDel]").hide();
+        $("[name=btn_MenuEdit]").hide();
+        $("[name=btn_MenuSave]").show();
+        $("[name=btn_MenuUrl]").hide();
+        $("[name=btn_MenuNotice]").hide();
+        $("[name=btn_MenuCancel]").hide();
+        //$("#form1 input").css("background-color", "#ffffff").removeAttr("readonly");
+        //$("#form1 select").css("background-color", "#efe3f7").removeAttr("disabled");
+        //$("#form1 textarea").css("background-color", "#efe3f7").removeAttr("readonly");
+        $('[name=inp_KeyWords]').focus();
+    }
+
+
+    function ViewMode() {
+
+        $('[name=inp_PageMode]').val('View');
+        $(".EditMode").hide();
+        $("[name=btn_MenuDel]").show();
+        $("[name=btn_MenuSave]").hide();
+ 
+        $("[name=btn_MenuCancel]").hide();
+        $("[name=btn_MenuEdit]").show();
+        $("[name=btn_MenuUrl]").show();
+        $("[name=btn_MenuNotice]").show();
+        
+        $("#form1 input").css("background-color", "#efe3f7").attr("readonly", "readonly");   //.removeAttr("readonly");
+        $("#form1 select").css("background-color", "#efe3f7").attr("disabled", "disabled");
+        $("#form1 textarea").css("background-color", "#efe3f7").attr("readonly", "readonly");
+        LoadLogList();
+    }
+
+    function EditMode() {
+        $('[name=inp_PageMode]').val('Edit');
+        $("[name=btn_MenuSave]").show();
+        $("[name=btn_MenuEdit]").hide();
+        $("[name=btn_MenuUrl]").hide();
+        $("[name=btn_MenuNotice]").hide();
+        $("[name=btn_MenuCancel]").show();
+        LoadFileList();
+        $(".EditMode").show();
+        $("#form1 input").css("background-color", "#ffffff").removeAttr("readonly");
+        $("#form1 select").css("background-color", "#ffffff").removeAttr("disabled");
+        $("#form1 textarea").css("background-color", "#ffffff").removeAttr("readonly");
+        $('[name=inp_KeyWords]').focus();
+    }
+
+
+    //载入档案清单
+    function LoadFileList() {
+
+
+        $.get('@Url.Action("File_List", "CommonService")?strArtID=' + $('[name=inp_ArtID]').val() + " &strPageID=" + $('[name=inp_PageID]').val() + "&strPageMode=" + $('[name=inp_PageMode]').val() + '&t1=' + (new Date()).getTime(), function (data) {
+            $("#FileArea01").html(data);
+
+            $("[name=FileDelete]").unbind('click').bind('click', function () {
+
+                if (confirm('确定要删除吗？')) {
+                    $.get('@Url.Action("File_DelTemp", "CommonService")??strArtID=' + $('[name=inp_ArtID]').val() + '&strUUID=' + $(this).attr('id') + " &strPageID=" + $('[name=inp_PageID]').val() + '&t1=' + (new Date()).getTime(), function (data) {
+                        //$("#run_msg").html(data);
+                        LoadFileList();
+                    });   //end of get
+                }
+
+            });
+
+        });   //end of get
+    }
+
+    //载入Log清单
+    function LoadLogList() {
+        return false;
+        $.get('@Url.Action("WeeklyRep_ShowLog", "WeeklyRep")?strArtID=' + $('[name=inp_ArtID]').val() + '&t1=' + (new Date()).getTime(), function (data) {
+            $("#div_ShowLog").html(data);
+        });   //end of get
+    }
+
+    //删除单笔数据
+    $("[name=btn_MenuDel]").bind("click", function () {
+        //alert($("[name=inp_ProductID]").val() + "将被删除");
+
+        if (!confirm("确认删除！"))
+            return false;
+
+        $("#run_msg").html("<img src='@Url.Content("~/Images/app/running4.gif")' />数据删除中...<br/>Data is Loading...");
+        $("#run_msg").dialog({  //自动弹出
+            title: "系统讯息",
+            height: 90,
+            width: 300,
+            resizable: false,
+            modal: true,
+            beforeClose: function (event, ui) { },
+            close: function (event, ui) { LoadList(); }
+        });
+
+        $.get('@Url.Action("WeeklyRep_Del", "WeeklyRep")?strArtID=' + $("#inp_Key").val() + '&t1=' + (new Date()).getTime(), function (data) {
+            $("#run_msg").html(data);
+
+        });   //end of get
+
+
+
+
+    });  //end of func
+
+    //关闭编辑视窗
+    $("[name=btn_MenuClose]").bind("click", function () {
+        LoadList();
+    });
+
+    
+    //回到检视
+    $("[name=btn_MenuCancel]").bind("click", function () {
+        ViewMode();
+    });
+
+    //编辑邮件发送内容
+    $("[name=btn_MenuNotice]").bind("click", function () {
+        $.get('@Url.Action("WeeklyRep_MailPage_Edit", "WeeklyRep")?strArtID=' + $('[name=inp_ArtID]').val() + '&t1=' + (new Date()).getTime(), function (data) {
+            $("#run_msg").html(data);
+            $("#run_msg").dialog({  //自动弹出
+                title: "发送通知-" + $('[name=inp_ArtID]').val(),
+                height: 400,
+                width: 500,
+                resizable: false,
+                modal: true,
+                beforeClose: function (event, ui) { },
+                close: function (event, ui) { }
+            });
+
+            //点击内容型态
+            $("[name=inp_EmailType]").unbind('click').bind("click", function () {
+           
+                if ($("input[name='inp_EmailType']:checked").val() == 'Add') {
+                    $("[name=inp_email_subject]").val($("[name=inp_EmailSubject_Add]").val());
+                    $("[name=inp_email_Content]").text($("[name=inp_EmailContent_Add]").val());
+                } else {
+                    $("[name=inp_email_subject]").val($("[name=inp_EmailSubject_Edit]").val());
+                    $("[name=inp_email_Content]").text($("[name=inp_EmailContent_Edit]").val());
+
+                }
+            }); //unbound
+             
+            //点击发送键
+            $("[name=btn_EmailSend]").unbind('click').bind("click", function () {
+
+                if ($("input[name=inp_EmailList]:checked").length == 0) {
+                    alert("至少须选定一个收件人！");
+                    return;
+                }
+
+
+                if ($("[name=inp_email_subject]").val() == '') {
+                    alert("邮件标题不能空白！");
+                    return;
+                }
+
+                if ($("[name=inp_email_Content]").val() == '') {
+                    alert("邮件内容不能空白！");
+                    return;
+                }
+
+                $("#form_Email").ajaxSubmit({
+                    success: function (data) { alert(data);  $("#run_msg").dialog("close"); },
+                    error: function (data) { alert(data); },
+                    url: '@Url.Action("WeeklyRep_MailPage_Send", "WeeklyRep")',
+                    type: "Post",
+                    dataType: null
+                });
+
+
+            }); //unbound
+            
+
+        });   //end of get
+    });
+
+    
+
+
+    //检视网址
+    $("[name=btn_MenuUrl]").bind("click", function () {
+ 
+        var strParam = 'http://@Request.Url.Host@Url.Action("WeeklyRep_GuestPage", "WeeklyRep")?strArtID=' + $('[name=inp_ArtID]').val();
+        $("#run_msg").html("<input type='text' name='inp_Copydata' style='width:460px' value=" + strParam + " /> <input type='button' value='複製到剪貼簿' class='btn' id='btn_CopyURL' />  ");
+        $("#run_msg").dialog({  //自动弹出
+            title: "检视网址",
+            height: 90,
+            width: 500,
+            resizable: false,
+            modal: true,
+            beforeClose: function (event, ui) { },
+            close: function (event, ui) { }
+        });
+
+    });
+
+
+
+
+    //上传档案
+    $("[name=btn_File01]").bind("click", function () {
+
+
+        //if ($("#upfile1").val() != '' && $("#upfile1").val().toLowerCase().indexOf('.pdf') == -1) {
+        //    alert("錯誤：文档必須為pdf格式！");
+        //    return;
+        //}
+
+
+        //弹出执行过程讯息
+        $("#run_msg").html("<img src='@Url.Content("~/Images/app/running4.gif")' />文档上传中...<br/>File is Uploading...");
+        $("#run_msg").dialog({  //自动弹出
+            title: "系统讯息",
+            height: 90,
+            width: 300,
+            resizable: false,
+            modal: true,
+            beforeClose: function (event, ui) { },
+            close: function (event, ui) { }
+        });
+
+        //开始上传
+        $("#form1").ajaxSubmit({
+            success: function (data) { $("#upfile1").val(''); LoadFileList(); $("#run_msg").dialog("close"); },
+            error: function (data) { alert(data); },
+            url: '@Url.Action("File_SaveTemp", "CommonService")',
+            type: "Post",
+            dataType: null
+        });
+
+        return false;
+
+
+
+    });  //end of func
+
+
+    //修改时先呼叫pop视窗填写Remark
+    $("[name=btn_MenuSave]").bind("click", function () {
+
+        if ($("[name=inp_PageMode]").val() == 'Add') {
+            SaveData();
+            return false;
+        }
+
+        $("#run_msg").html("修改原因说明：<textarea class='comments' rows='10' style=\"font-size:14px; height: expression((this.scrollHeight>250)?'250px':(this.scrollHeight+5)+'px'); overflow: auto;\" name='inp_Remark2'></textarea><input type='button' value='确认' name='btn_FillRemark' />");
+        $("#run_msg").dialog({  //自动弹出
+            title: "系统讯息",
+            height: 300,
+            width: 500,
+            resizable: false,
+            modal: true,
+            beforeClose: function (event, ui) { },
+            close: function (event, ui) { }
+        });
+
+        $("[name=btn_FillRemark]").bind("click", function () {
+            if ($("[name=inp_Remark2]").val() == '') {
+                alert("修改说明栏位不可空白！");
+                return;
+            } else
+                $("[name=inp_Remark]").val($("[name=inp_Remark2]").val())
+
+
+            SaveData();
+
+        }); //end of btn_FillRemark
+
+    });
+
+    //储存数据
+    function SaveData() {
+
+        if ($("[name=inp_Rep_Num]").val() == '') {
+            alert("周次栏位不可空白！");
+            return;
+        }
+
+        if ($("[name=inp_BeginDay]").val() == '') {
+            alert("起始日期不可空白！");
+            return;
+        }
+
+        if ($("[name=inp_EndDay]").val() == '') {
+            alert("结束日期不可空白！");
+            return;
+        }
+
+        if ($("[name=inp_ClassID]").val() == '') {
+            alert("分类栏位不可空白！");
+            return;
+        }
+
+        $("#run_msg").html("<img src='@Url.Content("~/Images/app/running4.gif")' />储存中...");
+        $("#run_msg").dialog({  //自动弹出
+            title: "系统讯息",
+            height: 90,
+            width: 300,
+            resizable: false,
+            modal: true,
+            beforeClose: function (event, ui) { },
+            close: function (event, ui) { }
+        });
+
+
+        //开始上传
+        $("#form1").ajaxSubmit({
+            success: showResponse,
+            error: function (data) { alert(data); },
+            url: '@Url.Action("WeeklyRep_Save", "WeeklyRep")',
+            type: "Post",
+            dataType: null
+        });
+
+        return false;
+
+
+
+    }  //end of func
+
+    //数据储存CallBack
+    function showResponse(responseText, statusText) {
+
+        if (responseText == "[Error]") {
+            $("#run_msg").html("對不起，資料异动失敗，請聯繫資訊人員幫忙處理！");
+            return false;
+        } else if (responseText.indexOf("{Error}") >= 0) {
+            $("#run_msg").html(responseText.replace("{Error}", ""));  //客制化讯息
+            return false;
+        }
+        ViewMode();
+        LoadFileList();
+        $("#run_msg").html(responseText);
+        return false;
+    }
+
+
+    </script>
